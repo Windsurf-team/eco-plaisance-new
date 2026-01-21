@@ -63,7 +63,8 @@
         .hero-slide.active { opacity: 1; }
 
         .slide-1 { background-image: url('arriere-plan-bateau-eco-plaisance.png'); }
-        .slide-2 { background-image: url('Les-bateaux-électriques-5.jpg'); }
+        .slide-2 { background-image: url('arriere-plan-bateau-eco-plaisance-2.png'); }
+        .slide-3 { background-image: url('arriere-plan-bateau-eco-plaisance-3.png'); }
 
         @keyframes pulseWater { 0% { transform: scale(1); } 100% { transform: scale(1.05); } }
 
@@ -264,13 +265,33 @@
 
         .story-img-wrapper { position: relative; }
 
-        .story-img {
+        .story-video-container {
+            position: relative; /* Pour positionner l'overlay */
             width: 100%;
-            border-radius: 200px 200px 0 0;
-            box-shadow: 20px 20px 0 var(--teal-accent);
-            transform: translateY(50px);
-            opacity: 0;
-            transition: all 1s ease;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            aspect-ratio: 16/9;
+            background: #000;
+        }
+
+        /* Overlay pour bloquer les clics sur YouTube */
+        .story-video-overlay {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: 2;
+            cursor: default;
+        }
+        
+        .story-video-container iframe {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 115%; /* On agrandit pour dépasser du cadre */
+            height: 115%;
+            transform: translate(-50%, -50%); /* On centre l'agrandissement */
+            border: 0;
+            pointer-events: none;
         }
         
         .pmr-badge {
@@ -549,9 +570,9 @@
     }
     
     /* Placeholders images */
-    .img-boat { background-image: url('https://images.unsplash.com/photo-1566370226650-7756f77732d8?q=80&w=2070&auto=format&fit=crop'); }
-    .img-port { background-image: url('https://images.unsplash.com/photo-1545464333-9cbd1f668d51?q=80&w=1934&auto=format&fit=crop'); }
-    .img-paddle { background-image: url('https://images.unsplash.com/photo-1626260846067-27b2b002236a?q=80&w=2070&auto=format&fit=crop'); }
+    .img-boat { background-image: url('activite-bateaux-electrique.jpg'); }
+    .img-port { background-image: url('activite-balade-des-3-ports.jpg'); }
+    .img-paddle { background-image: url('activite-paddle.png'); }
     
     /* Pour gérer l'image en CSS directement ou via balise img, ici via div background pour faciliter le cover */
     .aww-bg {
@@ -666,6 +687,7 @@
     <header class="hero-container">
         <div class="hero-slide slide-1 active"></div>
         <div class="hero-slide slide-2"></div>
+        <div class="hero-slide slide-3"></div>
         
         <div class="wave-separator wave-bottom">
             <svg viewBox="0 0 1440 320" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
@@ -718,7 +740,10 @@
                 <div class="steering-wheel-wrapper">
                     <img src="roue-bateau.png" alt="Volant de navire" class="steering-wheel" id="wheel">
                 </div>
-                <img src="https://images.unsplash.com/photo-1544985335-266858a80392?q=80&w=2070&auto=format&fit=crop" alt="Delta de l'Eyre" class="story-img reveal-img">
+                <div class="story-video-container">
+                    <div class="story-video-overlay"></div> <!-- Bloque l'interaction -->
+                    <iframe src="https://www.youtube.com/embed/QrHQ6p8ggiQ?autoplay=1&mute=1&loop=1&playlist=QrHQ6p8ggiQ&controls=0&modestbranding=1&rel=0&iv_load_policy=3&disablekb=1&fs=0" title="Vidéo E-co Plaisance" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>
+                </div>
                 <div class="pmr-badge">ACCÈS<br>PMR<br>100%</div>
             </div>
             
