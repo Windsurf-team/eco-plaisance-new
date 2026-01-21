@@ -49,45 +49,21 @@
             background: radial-gradient(circle at center, #1a4a5a 0%, #0A1A2B 100%);
         }
 
-        /* Texture d'eau animée */
-        .water-bg {
+        /* Texture d'eau animée (utilisé pour les diapositives) */
+        .hero-slide {
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
-            background-image: url('https://images.unsplash.com/photo-1500375592092-40eb2168fd21?q=80&w=2576&auto=format&fit=crop');
             background-size: cover;
-            opacity: 0.3;
-            mix-blend-mode: overlay;
-            animation: pulseWater 10s infinite alternate;
-            z-index: 2;
-        }
-
-        /* Video background (YouTube embed) */
-        .hero-video {
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            overflow: hidden;
+            background-position: center;
+            opacity: 0;
+            transition: opacity 1.5s ease-in-out; /* Transition douce */
             z-index: 1;
         }
 
-        .hero-video iframe {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            min-width: 100%;
-            min-height: 100%;
-            width: auto;
-            height: auto;
-            pointer-events: none; /* allow clicks on hero content */
-            border: 0;
-        }
+        .hero-slide.active { opacity: 1; }
 
-        /* Hide heavy video on small screens and increase water overlay
-           so hero still looks good on mobile */
-        @media (max-width: 768px) {
-            .hero-video { display: none; }
-            .water-bg { opacity: 0.6; }
-        }
+        .slide-1 { background-image: url('arriere-plan-bateau-eco-plaisance.png'); }
+        .slide-2 { background-image: url('Les-bateaux-électriques-5.jpg'); }
 
         @keyframes pulseWater { 0% { transform: scale(1); } 100% { transform: scale(1.05); } }
 
@@ -238,9 +214,12 @@
             width: 100%;
             line-height: 0;
             z-index: 2;
+            height: 60px; /* Moins haute pour être plus légère */
         }
+        .wave-separator svg { display: block; width: 100%; height: 60px; }
+        .wave-separator svg path { transform-origin: center top; }
         .wave-top { top: -1px; transform: rotate(180deg); }
-        .wave-bottom { bottom: -1px; }
+        .wave-bottom { bottom: 0; }
         .fill-dark { fill: var(--deep-water); }
         .fill-sand { fill: var(--sand); }
         .fill-white { fill: var(--white); }
@@ -312,6 +291,34 @@
         .story-content h2 { font-size: 3rem; margin-bottom: 2rem; color: var(--deep-water); }
         .story-content p { font-size: 1.1rem; line-height: 1.8; margin-bottom: 1.5rem; color: #555; }
         .highlight { color: var(--teal-accent); font-weight: 600; }
+
+        /* --- VOLANT ANIMÉ --- */
+        .steering-wheel-wrapper {
+            position: absolute;
+            top: -50px;
+            right: -60px;
+            width: 200px;
+            height: 200px;
+            z-index: 5;
+            pointer-events: none;
+            opacity: 1; /* Retrait de la transparence */
+        }
+
+        .steering-wheel {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            transition: transform 0.1s linear;
+        }
+
+        @media (max-width: 768px) {
+            .steering-wheel-wrapper {
+                width: 120px;
+                height: 120px;
+                top: -30px;
+                right: 10px;
+            }
+        }
 
         /* --- SECTION 2: LA FLOTTE --- */
         .fleet-section {
@@ -657,13 +664,11 @@
 
     <!-- Bannière HERO -->
     <header class="hero-container">
-        <div class="hero-video">
-            <iframe title="E-co Plaisance background" src="https://www.youtube.com/embed/QrHQ6p8ggiQ?autoplay=1&mute=1&controls=0&rel=0&loop=1&playlist=QrHQ6p8ggiQ&modestbranding=1&iv_load_policy=3&playsinline=1" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>
-        </div>
-        <div class="water-bg"></div>
+        <div class="hero-slide slide-1 active"></div>
+        <div class="hero-slide slide-2"></div>
         
         <div class="wave-separator wave-bottom">
-            <svg viewBox="0 0 1440 320" xmlns="http://www.w3.org/2000/svg">
+            <svg viewBox="0 0 1440 320" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
                 <path class="fill-white" fill-opacity="1" d="M0,224L48,213.3C96,203,192,181,288,181.3C384,181,480,203,576,224C672,245,768,267,864,261.3C960,256,1056,224,1152,197.3C1248,171,1344,149,1392,138.7L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
             </svg>
         </div>
@@ -710,6 +715,9 @@
         
         <div class="grid-story">
             <div class="story-img-wrapper">
+                <div class="steering-wheel-wrapper">
+                    <img src="roue-bateau.png" alt="Volant de navire" class="steering-wheel" id="wheel">
+                </div>
                 <img src="https://images.unsplash.com/photo-1544985335-266858a80392?q=80&w=2070&auto=format&fit=crop" alt="Delta de l'Eyre" class="story-img reveal-img">
                 <div class="pmr-badge">ACCÈS<br>PMR<br>100%</div>
             </div>
@@ -920,12 +928,31 @@
             // Animation du nouveau bloc d'actions
             document.querySelector('.hero-actions').style.opacity = '1';
             document.querySelector('.hero-actions').style.transform = 'translateY(0)';
+
+            // Gestion du diaporama Hero
+            const slides = document.querySelectorAll('.hero-slide');
+            let currentSlide = 0;
+
+            function nextSlide() {
+                slides[currentSlide].classList.remove('active');
+                currentSlide = (currentSlide + 1) % slides.length;
+                slides[currentSlide].classList.add('active');
+            }
+
+            setInterval(nextSlide, 4000); // Change toutes les 4 secondes
         });
 
         // Parallaxe simple au scroll
         window.addEventListener('scroll', () => {
             const scrolled = window.scrollY;
             
+            // Animation du volant de navire
+            const wheel = document.getElementById('wheel');
+            if(wheel) {
+                // Fait tourner le volant au scroll
+                wheel.style.transform = `rotate(${scrolled * 0.5}deg)`;
+            }
+
             // Effet sur le background de nature
             const bg = document.getElementById('parallax-bg');
             if(bg) {
