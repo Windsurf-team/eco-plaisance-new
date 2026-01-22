@@ -21,12 +21,16 @@
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 90px;
+        }
+
         body {
             font-family: 'Outfit', sans-serif;
             background-color: var(--deep-water);
             color: var(--white);
             overflow-x: hidden;
-            scroll-behavior: smooth;
         }
 
         /* Barre de défilement stylisée */
@@ -37,6 +41,105 @@
         h1, h2, h3 { font-family: 'Cinzel', serif; }
         .handwritten { font-family: 'Mrs Saint Delafield', cursive; color: var(--sand); }
 
+        /* --- HEADER FIXE --- */
+        .site-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 18px 5%;
+            background: transparent;
+            transition: background 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+        }
+
+        .site-header.scrolled {
+            background: rgba(249, 249, 249, 0.95);
+            backdrop-filter: blur(8px);
+            border-bottom: 1px solid rgba(10, 26, 43, 0.08);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+        }
+
+        .site-brand {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+        }
+
+        .site-logo {
+            height: 42px;
+            width: auto;
+            display: block;
+            transition: filter 0.3s ease;
+        }
+
+        /* Version “blanc” du logo quand le header est transparent */
+        .site-header:not(.scrolled) .site-logo {
+            filter: brightness(0) invert(1);
+        }
+
+        .site-nav {
+            display: flex;
+            align-items: center;
+            gap: 22px;
+        }
+
+        .site-nav a {
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 500;
+            font-size: 0.95rem;
+            opacity: 0.9;
+            transition: opacity 0.2s ease, color 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+            color: var(--white);
+        }
+
+        .site-nav a:hover { opacity: 1; }
+
+        .site-header.scrolled .site-nav a {
+            color: var(--deep-water);
+            opacity: 0.85;
+        }
+
+        .site-cta {
+            padding: 10px 18px;
+            border-radius: 999px;
+            border: 1px solid rgba(255,255,255,0.35);
+            background: rgba(255,255,255,0.12);
+            color: var(--white);
+            font-weight: 600;
+        }
+
+        .site-header.scrolled .site-cta {
+            background: var(--deep-water);
+            border-color: transparent;
+            color: var(--white);
+            opacity: 1;
+        }
+
+        .menu-toggle {
+            display: none;
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            border: 1px solid rgba(255,255,255,0.25);
+            background: rgba(255,255,255,0.08);
+            color: var(--white);
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+
+        .site-header.scrolled .menu-toggle {
+            border-color: rgba(10, 26, 43, 0.12);
+            background: rgba(10, 26, 43, 0.04);
+            color: var(--deep-water);
+        }
+
         /* --- HERO IMMERSIF --- */
         .hero-container {
             min-height: 100vh; /* Permet de s'adapter au contenu */
@@ -45,7 +148,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            padding-top: 60px; /* Espace pour le haut */
+            padding-top: 110px; /* Espace pour le header fixe */
             background: radial-gradient(circle at center, #1a4a5a 0%, #0A1A2B 100%);
         }
 
@@ -293,21 +396,6 @@
             border: 0;
             pointer-events: none;
         }
-        
-        .pmr-badge {
-            position: absolute;
-            bottom: -20px; right: -20px;
-            background: var(--deep-water);
-            color: var(--white);
-            width: 120px; height: 120px;
-            border-radius: 50%;
-            display: flex; align-items: center; justify-content: center;
-            text-align: center;
-            font-size: 0.8rem; font-weight: bold;
-            transform: rotate(-15deg);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
-            z-index: 2;
-        }
 
         .story-content h2 { font-size: 3rem; margin-bottom: 2rem; color: var(--deep-water); }
         .story-content p { font-size: 1.1rem; line-height: 1.8; margin-bottom: 1.5rem; color: #555; }
@@ -316,13 +404,13 @@
         /* --- VOLANT ANIMÉ --- */
         .steering-wheel-wrapper {
             position: absolute;
-            top: -50px;
+            bottom: -60px;
             right: -60px;
-            width: 200px;
-            height: 200px;
+            width: 250px;
+            height: 250px;
             z-index: 5;
             pointer-events: none;
-            opacity: 1; /* Retrait de la transparence */
+            filter: drop-shadow(0 10px 20px rgba(0,0,0,0.3));
         }
 
         .steering-wheel {
@@ -334,10 +422,10 @@
 
         @media (max-width: 768px) {
             .steering-wheel-wrapper {
-                width: 120px;
-                height: 120px;
-                top: -30px;
-                right: 10px;
+                width: 150px;
+                height: 150px;
+                bottom: -40px;
+                right: -20px;
             }
         }
 
@@ -497,6 +585,32 @@
             .btn-group { flex-direction: column; width: 100%; align-items: center; }
             .btn-primary, .btn-secondary { width: 90%; justify-content: center; }
             .social-proof { flex-direction: column; gap: 10px; padding: 15px; }
+        }
+
+        @media (max-width: 900px) {
+            .menu-toggle { display: flex; }
+            .site-nav {
+                display: none;
+                position: absolute;
+                top: calc(100% + 10px);
+                left: 5%;
+                right: 5%;
+                flex-direction: column;
+                gap: 14px;
+                padding: 18px;
+                border-radius: 16px;
+                background: rgba(10, 26, 43, 0.92);
+                border: 1px solid rgba(255,255,255,0.12);
+                backdrop-filter: blur(10px);
+            }
+
+            .site-header.scrolled .site-nav {
+                background: rgba(249, 249, 249, 0.98);
+                border-color: rgba(10, 26, 43, 0.08);
+            }
+
+            .site-header.open .site-nav { display: flex; }
+            .site-nav a { width: 100%; text-align: center; padding: 10px 0; }
         }
     
 
@@ -683,6 +797,23 @@
 </head>
 <body>
 
+    <header class="site-header" id="siteHeader">
+        <a class="site-brand" href="#" aria-label="Accueil E-co Plaisance">
+            <img src="logo.png" alt="E-co Plaisance" class="site-logo">
+        </a>
+
+        <button class="menu-toggle" type="button" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="siteNav">
+            <i class="fa-solid fa-bars"></i>
+        </button>
+
+        <nav class="site-nav" id="siteNav">
+            <a href="#lieu">Le lieu</a>
+            <a href="#activites">Activités</a>
+            <a href="#flotte">Flotte</a>
+            <a href="#reservation" class="site-cta">Réserver</a>
+        </nav>
+    </header>
+
     <!-- Bannière HERO -->
     <header class="hero-container">
         <div class="hero-slide slide-1 active"></div>
@@ -737,14 +868,14 @@
         
         <div class="grid-story">
             <div class="story-img-wrapper">
-                <div class="steering-wheel-wrapper">
-                    <img src="roue-bateau.png" alt="Volant de navire" class="steering-wheel" id="wheel">
-                </div>
                 <div class="story-video-container">
                     <div class="story-video-overlay"></div> <!-- Bloque l'interaction -->
                     <iframe src="https://www.youtube.com/embed/QrHQ6p8ggiQ?autoplay=1&mute=1&loop=1&playlist=QrHQ6p8ggiQ&controls=0&modestbranding=1&rel=0&iv_load_policy=3&disablekb=1&fs=0" title="Vidéo E-co Plaisance" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>
                 </div>
-                <div class="pmr-badge">ACCÈS<br>PMR<br>100%</div>
+                <!-- Volant déplacé ici -->
+                <div class="steering-wheel-wrapper">
+                    <img src="roue-bateau.png" alt="Volant de navire" class="steering-wheel" id="wheel">
+                </div>
             </div>
             
             <div class="story-content">
@@ -970,6 +1101,13 @@
         // Parallaxe simple au scroll
         window.addEventListener('scroll', () => {
             const scrolled = window.scrollY;
+
+            // Header sticky: transparent -> blanc
+            const siteHeader = document.getElementById('siteHeader');
+            if (siteHeader) {
+                if (scrolled > 30) siteHeader.classList.add('scrolled');
+                else siteHeader.classList.remove('scrolled');
+            }
             
             // Animation du volant de navire
             const wheel = document.getElementById('wheel');
@@ -994,6 +1132,30 @@
                 }
             }
         });
+
+        // Menu mobile
+        (() => {
+            const siteHeader = document.getElementById('siteHeader');
+            const menuToggle = document.querySelector('.menu-toggle');
+            const siteNav = document.getElementById('siteNav');
+
+            if (!siteHeader || !menuToggle || !siteNav) return;
+
+            // Init header state on first paint
+            if (window.scrollY > 30) siteHeader.classList.add('scrolled');
+
+            menuToggle.addEventListener('click', () => {
+                const isOpen = siteHeader.classList.toggle('open');
+                menuToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+            });
+
+            siteNav.querySelectorAll('a').forEach((link) => {
+                link.addEventListener('click', () => {
+                    siteHeader.classList.remove('open');
+                    menuToggle.setAttribute('aria-expanded', 'false');
+                });
+            });
+        })();
     </script>
 </body>
 </html>
