@@ -199,6 +199,16 @@
             transition: all 1.5s ease-out 0.3s;
         }
 
+        .hero-lead {
+            font-size: 1.1rem;
+            font-weight: 300;
+            letter-spacing: 1px;
+            color: rgba(249,249,249,0.95);
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 1.5s ease-out 0.45s;
+        }
+
         /* --- NOUVEAUX STYLES HERO (BOUTONS & AVIS) --- */
         .hero-actions {
             display: flex;
@@ -672,7 +682,6 @@
         text-decoration: none;
         transition: transform 0.4s ease;
         border: 1px solid rgba(255, 255, 255, 0.1);
-        group: hover;
     }
 
     /* Image de fond */
@@ -792,6 +801,231 @@
         .aww-header h2 { font-size: 3rem; }
         .aww-card { height: 450px; }
     }
+
+    /* --- SECTION CADEAU : BILLET / BOARDING PASS --- */
+    .gift-section {
+        position: relative;
+        padding: 100px 5%;
+        background-color: #050e17;
+        overflow: hidden;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    /* Fond texturé subtil */
+    .gift-section::before {
+        content: "";
+        position: absolute;
+        top: 0; left: 0; width: 100%; height: 100%;
+        background: radial-gradient(circle at 50% 50%, rgba(44, 110, 118, 0.15), transparent 60%);
+        pointer-events: none;
+    }
+
+    .gift-container {
+        display: grid;
+        grid-template-columns: 1fr 1.2fr; /* Texte à gauche, Billet à droite plus large */
+        gap: 60px;
+        align-items: center;
+        max-width: 1300px;
+        width: 100%;
+        position: relative;
+        z-index: 2;
+    }
+
+    /* --- PARTIE TEXTE --- */
+    .gift-content h2 {
+        font-family: 'Cinzel', serif;
+        font-size: 3.5rem;
+        color: var(--white);
+        margin-bottom: 20px;
+        line-height: 1.1;
+    }
+
+    .gift-content h2 span {
+        color: var(--sand);
+        font-style: italic;
+        display: block;
+    }
+
+    .gift-content p {
+        color: #aaa;
+        font-family: 'Outfit', sans-serif;
+        font-size: 1.1rem;
+        margin-bottom: 40px;
+    }
+
+    .gift-btn {
+        padding: 18px 35px;
+        background: var(--sand);
+        color: var(--deep-water);
+        text-decoration: none;
+        font-family: 'Outfit', sans-serif;
+        font-weight: bold;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
+        transition: all 0.3s ease;
+        display: inline-block;
+    }
+
+    .gift-btn:hover {
+        background: var(--white);
+        transform: translateY(-2px);
+        box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+    }
+
+    /* --- LE BILLET (TICKET) --- */
+    .ticket-visual {
+        perspective: 1500px;
+        display: flex;
+        justify-content: center;
+    }
+
+    .ticket-wrapper {
+        display: flex;
+        width: 600px;
+        height: 250px;
+        background: var(--white);
+        border-radius: 15px;
+        overflow: hidden;
+        box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+        transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        position: relative;
+        animation: floatTicket 6s ease-in-out infinite;
+    }
+
+    .ticket-wrapper:hover {
+        transform: scale(1.05) rotate(2deg);
+    }
+
+    @keyframes floatTicket {
+        0%, 100% { transform: translateY(0) rotate(0deg); }
+        50% { transform: translateY(-15px) rotate(1deg); }
+    }
+
+    /* Partie Gauche du Billet (Image) */
+    .ticket-left {
+        flex: 2;
+        background-image: url('activite-bateaux-electrique.jpg');
+        background-size: cover;
+        background-position: center;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        padding: 25px;
+        color: var(--white);
+    }
+
+    .ticket-left::after {
+        content: '';
+        position: absolute;
+        top: 0; left: 0; width: 100%; height: 100%;
+        background: linear-gradient(to right, rgba(10,26,43,0.7), rgba(10,26,43,0.3));
+    }
+
+    .ticket-info-overlay {
+        position: relative;
+        z-index: 2;
+    }
+
+    .ticket-brand {
+        font-family: 'Cinzel', serif;
+        letter-spacing: 2px;
+        font-size: 0.9rem;
+        opacity: 0.9;
+    }
+
+    .ticket-title {
+        font-size: 2.2rem;
+        font-family: 'Cinzel', serif;
+        margin-top: 10px;
+        line-height: 1;
+        color: var(--sand);
+    }
+
+    .ticket-meta {
+        position: relative;
+        z-index: 2;
+        display: flex;
+        gap: 20px;
+        font-family: 'Outfit', sans-serif;
+        font-size: 0.8rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+    /* La ligne de séparation pointillée */
+    .ticket-divider {
+        width: 0;
+        border-right: 2px dashed #ccc;
+        position: relative;
+        background: var(--white);
+        margin: 15px 0;
+    }
+
+    /* Les encoches (demi-cercles) */
+    .ticket-divider::before, .ticket-divider::after {
+        content: '';
+        position: absolute;
+        width: 30px; height: 30px;
+        background-color: #050e17;
+        border-radius: 50%;
+        left: -15px;
+    }
+
+    .ticket-divider::before { top: -30px; }
+    .ticket-divider::after { bottom: -30px; }
+
+    /* Partie Droite du Billet (Stub) */
+    .ticket-right {
+        flex: 0.8;
+        padding: 25px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background: #f4f4f4;
+        text-align: center;
+        border-left: none;
+    }
+
+    .qr-fake {
+        width: 80px; height: 80px;
+        background-image: url('https://upload.wikimedia.org/wikipedia/commons/d/d0/QR_code_for_mobile_English_Wikipedia.svg');
+        background-size: cover;
+        opacity: 0.8;
+        margin-bottom: 15px;
+    }
+
+    .ticket-code {
+        font-family: 'Courier New', monospace;
+        font-weight: bold;
+        color: var(--deep-water);
+        letter-spacing: 2px;
+        font-size: 1.1rem;
+    }
+
+    .ticket-sub {
+        font-size: 0.7rem;
+        color: #888;
+        text-transform: uppercase;
+        margin-top: 5px;
+    }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+        .gift-container { grid-template-columns: 1fr; text-align: center; }
+        .ticket-wrapper { width: 100%; max-width: 500px; height: auto; flex-direction: column; margin: 0 auto; }
+        .ticket-divider {
+            width: 100%; height: 0; border-right: none; border-bottom: 2px dashed #ccc; margin: 0;
+        }
+        .ticket-divider::before { left: -30px; top: -15px; }
+        .ticket-divider::after { right: -30px; top: -15px; left: auto; bottom: auto; }
+        .ticket-left { height: 200px; }
+        .ticket-right { padding: 30px; }
+    }
         
     </style>
 </head>
@@ -809,6 +1043,7 @@
         <nav class="site-nav" id="siteNav">
             <a href="#lieu">Le lieu</a>
             <a href="#activites">Activités</a>
+            <a href="#cadeau">Carte Cadeau</a>
             <a href="#flotte">Flotte</a>
             <a href="#reservation" class="site-cta">Réserver</a>
         </nav>
@@ -828,6 +1063,7 @@
 
         <div class="hero-content">
             <p class="handwritten hero-subtitle">Port du Teich, Bassin d'Arcachon</p>
+            <p class="hero-lead">Location de bateaux électriques sans permis et paddles sur le Bassin d’Arcachon.</p>
             <h1 class="hero-title">E-CO<br>PLAISANCE</h1>
 
             <div class="hero-actions">
@@ -951,18 +1187,54 @@
         </div>
     </section>
 
-    
+    <!-- Section Cadeau (Design Billet / Boarding Pass) -->
+    <section class="gift-section" id="cadeau">
+        <div class="gift-container">
 
+            <div class="gift-content">
+                <h2>OFFRIR<br><span>L'ÉVASION</span></h2>
+                <p>
+                    Une idée originale pour un anniversaire ou un départ en retraite ? Offrez la liberté de naviguer sur le Bassin d'Arcachon.
+                </p>
+                <p>
+                    Nos cartes cadeaux sont valables sur toute la flotte (bateaux électriques, thermiques ou paddle) pendant 1 an.
+                </p>
+                <a href="#" class="gift-btn">Créer mon billet cadeau</a>
+            </div>
 
+            <div class="ticket-visual" aria-hidden="true">
+                <div class="ticket-wrapper">
 
+                    <div class="ticket-left">
+                        <div class="ticket-info-overlay">
+                            <span class="ticket-brand">E-CO PLAISANCE • BASSIN D'ARCACHON</span>
+                            <h3 class="ticket-title">BOARDING<br>PASS</h3>
+                        </div>
+                        <div class="ticket-meta">
+                            <div>
+                                <span style="display:block; color:#aaa; font-size:0.6rem;">VALIDITÉ</span>
+                                12 MOIS
+                            </div>
+                            <div>
+                                <span style="display:block; color:#aaa; font-size:0.6rem;">ZONE</span>
+                                DELTA & BASSIN
+                            </div>
+                        </div>
+                    </div>
 
+                    <div class="ticket-divider"></div>
 
+                    <div class="ticket-right">
+                        <div class="qr-fake"></div>
+                        <div class="ticket-code">GIFT-2024</div>
+                        <div class="ticket-sub">Valeur Libre</div>
+                    </div>
 
+                </div>
+            </div>
 
-
-
-
-
+        </div>
+    </section>
 
     <section class="fleet-section" id="flotte">
         <div class="fleet-header">
@@ -1080,6 +1352,11 @@
             
             document.querySelector('.hero-subtitle').style.opacity = '1';
             document.querySelector('.hero-subtitle').style.transform = 'translateY(0)';
+            const heroLead = document.querySelector('.hero-lead');
+            if (heroLead) {
+                heroLead.style.opacity = '1';
+                heroLead.style.transform = 'translateY(0)';
+            }
             
             // Animation du nouveau bloc d'actions
             document.querySelector('.hero-actions').style.opacity = '1';
