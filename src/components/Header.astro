@@ -1,0 +1,52 @@
+---
+---
+<header class="site-header" id="siteHeader">
+    <a class="site-brand" href="#" aria-label="Accueil E-co Plaisance">
+        <img src="/logo-ligne.png" alt="E-co Plaisance" class="site-logo">
+    </a>
+
+    <button class="menu-toggle" type="button" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="siteNav">
+        <i class="fa-solid fa-bars"></i>
+    </button>
+
+    <nav class="site-nav" id="siteNav">
+        <a href="#lieu">Le lieu</a>
+        <a href="#activites">Activités</a>
+        <a href="#cadeau">Carte Cadeau</a>
+        <a href="#flotte">Flotte</a>
+        <a href="#reservation" class="site-cta">Réserver</a>
+    </nav>
+</header>
+
+<script>
+    // Header Sticky Effect
+    window.addEventListener('scroll', () => {
+        const siteHeader = document.getElementById('siteHeader');
+        if (siteHeader) {
+            if (window.scrollY > 30) siteHeader.classList.add('scrolled');
+            else siteHeader.classList.remove('scrolled');
+        }
+    });
+
+    // Mobile Menu Toggle
+    const siteHeader = document.getElementById('siteHeader');
+    const menuToggle = document.querySelector('.menu-toggle');
+    const siteNav = document.getElementById('siteNav');
+
+    if (siteHeader && menuToggle && siteNav) {
+        // Init header state on first paint
+        if (window.scrollY > 30) siteHeader.classList.add('scrolled');
+
+        menuToggle.addEventListener('click', () => {
+            const isOpen = siteHeader.classList.toggle('open');
+            menuToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+        });
+
+        siteNav.querySelectorAll('a').forEach((link) => {
+            link.addEventListener('click', () => {
+                siteHeader.classList.remove('open');
+                menuToggle.setAttribute('aria-expanded', 'false');
+            });
+        });
+    }
+</script>

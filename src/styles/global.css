@@ -1532,6 +1532,13 @@ background: rgba(10, 26, 43, 0.1);
     width: 60px; /* Active expands */
 }
 
+.avis-footer { 
+    text-align: center; 
+    margin-top: 60px; 
+    display: flex; /* Enforce flex centering if needed for some elements */
+    justify-content: center;
+}
+
 /* Responsive adjustment needed for new grid sizes */
 @media (max-width: 1024px) {
     .avis-card { min-width: calc((100% - 30px) / 2); } 

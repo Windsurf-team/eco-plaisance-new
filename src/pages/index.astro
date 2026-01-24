@@ -1,25 +1,11 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
 ---
 
 <Layout>
-    <header class="site-header" id="siteHeader">
-        <a class="site-brand" href="#" aria-label="Accueil E-co Plaisance">
-            <img src="/logo-ligne.png" alt="E-co Plaisance" class="site-logo">
-        </a>
-
-        <button class="menu-toggle" type="button" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="siteNav">
-            <i class="fa-solid fa-bars"></i>
-        </button>
-
-        <nav class="site-nav" id="siteNav">
-            <a href="#lieu">Le lieu</a>
-            <a href="#activites">Activités</a>
-            <a href="#cadeau">Carte Cadeau</a>
-            <a href="#flotte">Flotte</a>
-            <a href="#reservation" class="site-cta">Réserver</a>
-        </nav>
-    </header>
+    <Header />
 
     <!-- Bannière HERO -->
     <header class="hero-container">
@@ -465,18 +451,7 @@ import Layout from '../layouts/Layout.astro';
       </div>
     </section>
 
-    <footer class="contact-footer" id="reservation">
-        <h2 style="font-size:3rem; color:var(--white); margin-bottom:10px;">Prêt à embarquer ?</h2>
-        <p>Port du Teich - Au pied du Belvédère</p>
-        <a href="#" class="cta-big">RÉSERVER MA BALADE</a>
-        <br><br><br>
-        <div style="display:flex; justify-content:center; gap:30px; font-size:1.5rem;">
-            <i class="fa-brands fa-instagram"></i>
-            <i class="fa-brands fa-facebook"></i>
-            <i class="fa-solid fa-envelope"></i>
-        </div>
-        <p style="margin-top:50px; font-size:0.8rem;">© 2024 E-co Plaisance BA. Tous droits réservés.</p>
-    </footer>
+    <Footer />
 </Layout>
 
 <script>
@@ -523,13 +498,6 @@ import Layout from '../layouts/Layout.astro';
     window.addEventListener('scroll', () => {
         const scrolled = window.scrollY;
 
-        // Header sticky: transparent -> blanc
-        const siteHeader = document.getElementById('siteHeader');
-        if (siteHeader) {
-            if (scrolled > 30) siteHeader.classList.add('scrolled');
-            else siteHeader.classList.remove('scrolled');
-        }
-        
         // Animation du volant de navire
         const wheel = document.getElementById('wheel');
         if(wheel) {
@@ -553,30 +521,6 @@ import Layout from '../layouts/Layout.astro';
             }
         }
     });
-
-    // Menu mobile
-    (() => {
-        const siteHeader = document.getElementById('siteHeader');
-        const menuToggle = document.querySelector('.menu-toggle');
-        const siteNav = document.getElementById('siteNav');
-
-        if (!siteHeader || !menuToggle || !siteNav) return;
-
-        // Init header state on first paint
-        if (window.scrollY > 30) siteHeader.classList.add('scrolled');
-
-        menuToggle.addEventListener('click', () => {
-            const isOpen = siteHeader.classList.toggle('open');
-            menuToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
-        });
-
-        siteNav.querySelectorAll('a').forEach((link) => {
-            link.addEventListener('click', () => {
-                siteHeader.classList.remove('open');
-                menuToggle.setAttribute('aria-expanded', 'false');
-            });
-        });
-    })();
 
     // --- SCRIPT AVIS GOOGLE ---
     (() => {
