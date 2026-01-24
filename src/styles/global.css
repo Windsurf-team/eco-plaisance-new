@@ -94,19 +94,32 @@ h1, h2, h3 { font-family: 'Cinzel', serif; }
 }
 
 .site-cta {
-    padding: 10px 18px;
-    border-radius: 999px;
-    border: 1px solid rgba(255,255,255,0.35);
+    padding: 10px 22px;
+    clip-path: polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px);
     background: rgba(255,255,255,0.12);
     color: var(--white);
     font-weight: 600;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(255,255,255,0.3);
+}
+
+.site-cta:hover {
+    background: var(--sand);
+    color: var(--deep-water);
+    border-color: var(--sand);
 }
 
 .site-header.scrolled .site-nav .site-cta {
     background: var(--deep-water);
-    border-color: transparent;
+    border-color: var(--deep-water);
     color: var(--white);
     opacity: 1;
+}
+
+.site-header.scrolled .site-nav .site-cta:hover {
+    background: var(--sand);
+    color: var(--deep-water);
+    border-color: var(--sand);
 }
 
 .menu-toggle {
@@ -225,39 +238,61 @@ h1, h2, h3 { font-family: 'Cinzel', serif; }
 
 /* Bouton Principal */
 .btn-primary {
-    padding: 15px 35px;
-    background: linear-gradient(135deg, var(--teal-accent) 0%, #1a4a5a 100%);
-    color: var(--white);
-    border-radius: 50px;
+    padding: 18px 35px;
+    background: var(--sand);
+    color: var(--deep-water);
     text-decoration: none;
-    font-weight: 600;
+    font-family: 'Outfit', sans-serif;
+    font-weight: bold;
+    text-transform: uppercase;
     letter-spacing: 1px;
-    box-shadow: 0 10px 20px rgba(44, 110, 118, 0.4);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
+    transition: all 0.3s ease;
     display: flex;
     align-items: center;
     gap: 10px;
+    box-shadow: none; /* Reset shadow as clip-path cuts it anyway mostly, but we can try drop-shadow filter if needed, though gift-btn uses box-shadow (which might be clipped invisible or visibly cut) */
+    /* gift-btn definition has box-shadow on hover. Box-shadow on element with clip-path is NOT visible (it's clipped out). 
+       The user said "official button is gift-btn". 
+       Let's check gift-btn definition again.
+       .gift-btn:hover { ... box-shadow: ... }
+       If gift-btn has clip-path, the box-shadow is indeed clipped and invisible. 
+       Maybe the user doesn't realize this or I should use filter: drop-shadow().
+       However, I will strictly follow the "gift-btn" visually.
+       Wait, let's look at the context provided for gift-btn again.
+       It DOES have box-shadow on hover.
+       CSS box-shadow is strictly outside the border box. clip-path hides everything outside.
+       So on gift-btn, the box-shadow is likely ineffective.
+       I will stick to the properties found in gift-btn.
+    */
 }
 
 .btn-primary:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 15px 30px rgba(44, 110, 118, 0.6);
+    background: var(--white);
+    transform: translateY(-2px);
+    /* box-shadow: 0 10px 20px rgba(0,0,0,0.3); Copied from gift-btn, essentially useless with clip-path */
+    filter: drop-shadow(0 10px 20px rgba(0,0,0,0.3)); /* Better replacement for clip-path elements */
 }
 
 /* Bouton Secondaire */
 .btn-secondary {
-    padding: 15px 35px;
-    background: transparent;
+    padding: 18px 35px;
+    background: rgba(255, 255, 255, 0.1);
     color: var(--white);
-    border: 1px solid rgba(255,255,255,0.3);
-    border-radius: 50px;
+    border: 1px solid rgba(255,255,255,0.2); /* Border will be cut at corners */
     text-decoration: none;
-    font-weight: 500;
+    font-family: 'Outfit', sans-serif;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
     transition: all 0.3s ease;
+    clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
+    backdrop-filter: blur(5px);
 }
 
 .btn-secondary:hover {
-    background: rgba(255,255,255,0.1);
+    background: var(--white);
+    color: var(--deep-water);
     border-color: var(--white);
 }
 
@@ -618,17 +653,24 @@ h1, h2, h3 { font-family: 'Cinzel', serif; }
 
 .cta-big {
     display: inline-block;
-    margin-top: 30px; padding: 20px 50px;
-    background: var(--sand); color: var(--deep-water);
-    font-family: 'Cinzel', serif; font-weight: bold; font-size: 1.2rem;
+    margin-top: 30px; 
+    padding: 18px 35px;
+    background: var(--sand); 
+    color: var(--deep-water);
+    font-family: 'Outfit', sans-serif; 
+    font-weight: bold; 
+    font-size: 1rem; /* Adjusted to match others approx or let it be 1.2rem? gift-btn is default size. let's stick closer to gift-btn */
+    text-transform: uppercase;
+    letter-spacing: 1px;
     text-decoration: none;
-    clip-path: polygon(10% 0, 100% 0, 90% 100%, 0% 100%);
-    transition: all 0.3s;
+    clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
+    transition: all 0.3s ease;
 }
 
 .cta-big:hover {
-    transform: scale(1.05); background: var(--white);
-    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+    background: var(--white);
+    transform: translateY(-2px);
+    filter: drop-shadow(0 10px 20px rgba(0,0,0,0.3));
 }
 
 /* --- RESPONSIVE --- */
