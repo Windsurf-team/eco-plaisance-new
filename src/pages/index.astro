@@ -1,0 +1,481 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout>
+    <header class="site-header" id="siteHeader">
+        <a class="site-brand" href="#" aria-label="Accueil E-co Plaisance">
+            <img src="/logo-ligne.png" alt="E-co Plaisance" class="site-logo">
+        </a>
+
+        <button class="menu-toggle" type="button" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="siteNav">
+            <i class="fa-solid fa-bars"></i>
+        </button>
+
+        <nav class="site-nav" id="siteNav">
+            <a href="#lieu">Le lieu</a>
+            <a href="#activites">Activités</a>
+            <a href="#cadeau">Carte Cadeau</a>
+            <a href="#flotte">Flotte</a>
+            <a href="#reservation" class="site-cta">Réserver</a>
+        </nav>
+    </header>
+
+    <!-- Bannière HERO -->
+    <header class="hero-container">
+        <div class="hero-slide slide-1 active"></div>
+        <div class="hero-slide slide-2"></div>
+        <div class="hero-slide slide-3"></div>
+        
+        <div class="hero-overlay"></div>
+
+        <div class="wave-separator wave-bottom">
+            <svg viewBox="0 0 1440 320" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+                <path class="fill-white" fill-opacity="1" d="M0,224L48,213.3C96,203,192,181,288,181.3C384,181,480,203,576,224C672,245,768,267,864,261.3C960,256,1056,224,1152,197.3C1248,171,1344,149,1392,138.7L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
+            </svg>
+        </div>
+
+        <div class="hero-content">
+            <p class="handwritten hero-subtitle">Port du Teich, Bassin d'Arcachon</p>
+            <h1 class="hero-title">LOCATION DE BATEAUX<br>ÉLECTRIQUES SANS PERMIS</h1>
+            <p class="hero-lead">Explorez le Delta de la Leyre en silence. Location de paddles également disponible.</p>
+
+            <div class="hero-actions">
+                <div class="btn-group">
+                    <a href="#reservation" class="btn-primary">
+                        RÉSERVER MON BATEAU <i class="fa-solid fa-arrow-right"></i>
+                    </a>
+                    <a href="#flotte" class="btn-secondary">
+                        VISITER LA FLOTTE
+                    </a>
+                </div>
+
+                <div class="social-proof">
+                    <div class="avatars">
+                        <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Client">
+                        <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Client">
+                        <img src="https://randomuser.me/api/portraits/women/65.jpg" alt="Client">
+                        <div class="more-badge">+100</div>
+                    </div>
+                    <div class="rating-text">
+                        <div class="stars">
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                        </div>
+                        <span class="google-score">4.9/5 sur Google</span>
+                    </div>
+                </div>
+            </div>
+            </div>
+    </header>
+
+    <!-- Présentation  -->
+    <section class="story-section" id="lieu">
+        <div class="floating-text">THE DELTA</div>
+        
+        <div class="grid-story">
+            <div class="story-img-wrapper">
+                <div class="story-video-container">
+                    <div class="story-video-overlay"></div> <!-- Bloque l'interaction -->
+                    <iframe src="https://www.youtube.com/embed/QrHQ6p8ggiQ?autoplay=1&mute=1&loop=1&playlist=QrHQ6p8ggiQ&controls=0&modestbranding=1&rel=0&iv_load_policy=3&disablekb=1&fs=0" title="Vidéo E-co Plaisance" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>
+                </div>
+                <!-- Volant déplacé ici -->
+                <div class="steering-wheel-wrapper">
+                    <img src="/roue-bateau.png" alt="Volant de navire" class="steering-wheel" id="wheel">
+                </div>
+            </div>
+            
+            <div class="story-content">
+                <h3 class="handwritten" style="color:var(--teal-accent); font-size:2rem;">Bienvenue au Paradis</h3>
+                <h2>Un Belvédère sur le Delta</h2>
+                <p>Imaginez une cabane au pied du belvédère, unique endroit surplombant le majestueux <span class="highlight">Delta de l'Eyre</span>. C'est ici que l'aventure commence.</p>
+                <p>En longeant le port, notre petite flotte vous attend. Un lieu de vie complet : baignade surveillée, aire de pique-nique et farniente pour les plus sportifs.</p>
+                <br>
+                <p style="font-style:italic; border-left:3px solid var(--teal-accent); padding-left:20px;">
+                    "Nous avons une volonté forte : donner accès à tous. Notre ponton est sécurisé et facilité pour les Personnes à Mobilité Réduite."
+                </p>
+            </div>
+        </div>
+
+        <div class="captain-note-wrapper">
+            <div class="captain-card">
+                <div class="captain-flex">
+                    <img src="/PhotoFred1.jpg" alt="Frédéric" class="captain-photo">
+                    <div>
+                        <p style="font-weight:700; font-size: 2.2rem; margin-bottom: 15px; color: var(--teal-accent);">Moi, c'est Frédéric !</p>
+                        <p style="margin-top:0;">Natif de Gujan-Mestras, j'ai retrouvé mes racines pour partager une navigation respectueuse.</p>
+                        <p style="margin-top:5px;">Je vous invite à découvrir la richesse de notre écosystème en silence et en douceur.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div style="background:var(--white); height:50px; overflow:hidden;">
+        <svg viewBox="0 0 1440 320" xmlns="http://www.w3.org/2000/svg">
+            <path class="fill-dark" fill-opacity="1" d="M0,96L80,122.7C160,149,320,203,480,208C640,213,800,171,960,160C1120,149,1280,171,1360,181.3L1440,192L1440,320L1360,320C1280,320,1120,320,960,320C800,320,640,320,480,320C320,320,160,320,80,320L0,320Z"></path>
+        </svg>
+    </div>
+
+    <!-- Section 3 activités -->
+<section class="aww-activities" id="activites">
+        
+        <div class="aww-header">
+            <h2>NOS ÉVASIONS</h2>
+            <p>Explorez le bassin d'Arcachon autrement.<br>Silence, Nature & Liberté.</p>
+        </div>
+
+        <div class="aww-grid">
+            
+            <a href="#" class="aww-card">
+                <div class="aww-bg img-boat"></div> <div class="aww-overlay"></div>
+                <div class="aww-num">01</div>
+                
+                <div class="aww-content">
+                    <h3>Location Bateaux</h3>
+                    <p>5 électriques & 2 thermiques. Devenez capitaine sans permis pour une journée inoubliable.</p>
+                    <div class="circle-btn">
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </div>
+                </div>
+            </a>
+
+            <a href="#" class="aww-card">
+                <div class="aww-bg img-port"></div>
+                <div class="aww-overlay"></div>
+                <div class="aww-num">02</div>
+                
+                <div class="aww-content">
+                    <h3>Balade des 3 Ports</h3>
+                    <p>Un itinéraire signature pour découvrir l'authenticité des cabanes et la faune locale.</p>
+                    <div class="circle-btn">
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </div>
+                </div>
+            </a>
+
+            <a href="#" class="aww-card">
+                <div class="aww-bg img-paddle"></div>
+                <div class="aww-overlay"></div>
+                <div class="aww-num">03</div>
+                
+                <div class="aww-content">
+                    <h3>Paddle Sport</h3>
+                    <p>Glissez sur la Leyre à la force des bras. Le point de vue le plus proche de la nature.</p>
+                    <div class="circle-btn">
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </div>
+                </div>
+            </a>
+
+        </div>
+    </section>
+
+    <!-- SECTION LOCATION -->
+    <section class="location-section" id="lieu">
+        <div class="location-info">
+            <span class="handwritten" style="color: var(--teal-accent); font-size: 2.2rem;">Le Port du Teich</span>
+            <h2>Où nous trouver ?</h2>
+            <p>Sur le site aménagé du port du Teich, notre cabane d'accueil se situe au pied du belvédère, unique endroit surplombant le delta de l'Eyre.</p>
+            <p>En longeant le port de plaisance, vous apercevrez notre petite flotte composée de 5 bateaux électriques, 2 bateaux à moteurs thermiques ainsi que des Paddles.</p>
+            <p style="border-left: 3px solid var(--teal-accent); padding-left: 15px; font-style: italic; color: #555;">
+                Notre volonté forte est aussi de donner accès aux Personnes à Mobilité Réduite avec un accès facilité et sécurisé.
+            </p>
+            
+            <div class="location-highlights">
+                <div class="highlight-item">
+                    <div class="highlight-icon"><i class="fa-solid fa-umbrella-beach"></i></div>
+                    <span class="highlight-text">Baignade surveillée</span>
+                </div>
+                <div class="highlight-item">
+                    <div class="highlight-icon"><i class="fa-solid fa-utensils"></i></div>
+                    <span class="highlight-text">Aire pique-nique</span>
+                </div>
+                <div class="highlight-item">
+                    <div class="highlight-icon"><i class="fa-solid fa-person-walking"></i></div>
+                    <span class="highlight-text">Balade à pied</span>
+                </div>
+                <div class="highlight-item">
+                    <div class="highlight-icon"><i class="fa-solid fa-wheelchair"></i></div>
+                    <span class="highlight-text">Accès PMR</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="location-map-container">
+            <!-- Intégration Google Maps centrée sur le Port du Teich -->
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2838.384505677054!2d-1.0232432!3d44.6385388!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd54980a37703875%3A0x63346d6540c74c93!2sPort%20du%20Teich!5e0!3m2!1sfr!2sfr!4v1706025000000!5m2!1sfr!2sfr" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+    </section>
+
+    <!-- Section Cadeau (Design Billet / Boarding Pass) -->
+    <section class="gift-section" id="cadeau">
+        <div class="gift-container">
+
+            <div class="gift-content">
+                <h2>OFFRIR<br><span>L'ÉVASION</span></h2>
+                <p>
+                    Une idée originale pour un anniversaire ou un départ en retraite ? Offrez la liberté de naviguer sur le Bassin d'Arcachon.
+                </p>
+                <p>
+                    Nos cartes cadeaux sont valables sur toute la flotte (bateaux électriques, thermiques ou paddle) pendant 1 an.
+                </p>
+                <a href="#" class="gift-btn">Créer mon billet cadeau</a>
+            </div>
+
+            <div class="ticket-visual" aria-hidden="true">
+                <div class="ticket-wrapper">
+
+                    <div class="ticket-left">
+                        <div class="ticket-info-overlay">
+                            <span class="ticket-brand">E-CO PLAISANCE • BASSIN D'ARCACHON</span>
+                            <h3 class="ticket-title">BOARDING<br>PASS</h3>
+                        </div>
+                        <div class="ticket-meta">
+                            <div>
+                                <span style="display:block; color:#aaa; font-size:0.6rem;">VALIDITÉ</span>
+                                12 MOIS
+                            </div>
+                            <div>
+                                <span style="display:block; color:#aaa; font-size:0.6rem;">ZONE</span>
+                                DELTA & BASSIN
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="ticket-divider"></div>
+
+                    <div class="ticket-right">
+                        <div class="qr-fake"></div>
+                        <div class="ticket-code">GIFT-2024</div>
+                        <div class="ticket-sub">Valeur Libre</div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <section class="fleet-section" id="flotte">
+        <div class="fleet-header">
+            <span class="handwritten">Notre Collection</span>
+            <h2>Naviguez Sans Permis</h2>
+            <p style="color:var(--sand); max-width:600px; margin:0 auto;">Une navigation silencieuse et propre pour descendre La Leyre jusqu'au bassin.</p>
+        </div>
+
+        <div class="fleet-container">
+            <div class="boat-card">
+                <div class="price-tag">ÉLECTRIQUE</div>
+                <div class="boat-icon"><i class="fa-solid fa-bolt"></i></div>
+                <h3>L'Éclaireur</h3>
+                <p>5 bateaux électriques pour une glisse parfaite.</p>
+                <div class="boat-specs">
+                    <span class="spec-pill">7 Personnes</span>
+                    <span class="spec-pill">8 km/h Max</span>
+                    <span class="spec-pill">8h Autonomie</span>
+                </div>
+                <p style="font-size:0.9rem; opacity:0.7;">Taud de soleil inclus. Prise en main ultra-facile.</p>
+            </div>
+
+             <div class="boat-card">
+                <div class="price-tag">THERMIQUE</div>
+                <div class="boat-icon"><i class="fa-solid fa-anchor"></i></div>
+                <h3>L'Explorateur</h3>
+                <p>2 bateaux thermiques pour ceux qui veulent aller un peu plus loin.</p>
+                <div class="boat-specs">
+                    <span class="spec-pill">Sans Permis</span>
+                    <span class="spec-pill">Confort</span>
+                    <span class="spec-pill">Sécurité</span>
+                </div>
+                <p style="font-size:0.9rem; opacity:0.7;">Idéal pour la "Balade des 3 ports" (1h à 4h).</p>
+            </div>
+
+             <div class="boat-card">
+                <div class="price-tag">SPORT</div>
+                <div class="boat-icon"><i class="fa-solid fa-water"></i></div>
+                <h3>Le Paddle</h3>
+                <p>Remontez la Leyre à la force de vos bras !</p>
+                <div class="boat-specs">
+                    <span class="spec-pill">Sport</span>
+                    <span class="spec-pill">Nature</span>
+                    <span class="spec-pill">Fun</span>
+                </div>
+                <p style="font-size:0.9rem; opacity:0.7;">Départ direct du ponton. Bronzage garanti.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION DETAILS SUPPLEMENTAIRES -->
+    <section class="details-section">
+        
+        <!-- Bloc 1 : Expérience Électrique / Capitaine -->
+        <div class="detail-block">
+            <div class="detail-text">
+                <span class="handwritten" style="color: var(--teal-accent); font-size: 2rem;">Capitaine d'un jour</span>
+                <h3>Navigation & Liberté</h3>
+                <p>
+                    Nos bateaux à propulsion électrique sont très accessibles par tous. Ils vous permettent un instant de devenir Capitaine, dans une navigation silencieuse et propre.
+                </p>
+                <p>
+                    Vous aurez le privilège de descendre La Leyre et de naviguer jusqu'au bassin pour des balades allant de 1h à 4h. Une connexion totale avec la nature.
+                </p>
+            </div>
+            <div class="detail-image img-elec"></div>
+        </div>
+
+        <!-- Bloc 2 : Technique / Sans Permis / Paddle -->
+        <div class="detail-block">
+            <div class="detail-text">
+                <span class="handwritten" style="color: var(--teal-accent); font-size: 2rem;">100% Accessible</span>
+                <h3>Confort & Facilité</h3>
+                <p>
+                    Bateaux sans permis, accessibles pour 7 personnes, équipés d'un taud soleil, vitesse maxi de 8km/h pour une autonomie de 8h. 
+                </p>
+                <p>
+                    Prise en main très facile, on vous aide pour démarrer en toute sérénité… 
+                </p>
+                <p>
+                    Le départ des Paddle se situe au même endroit et vous pourrez remonter la Leyre à la force de vos petits bras !!
+                </p>
+            </div>
+            <div class="detail-image img-tech"></div>
+        </div>
+
+        <!-- Bloc 3 : Ambiance / Apéro -->
+        <div class="detail-block">
+            <div class="detail-text">
+                <span class="handwritten" style="color: var(--teal-accent); font-size: 2rem;">L'Instant Magique</span>
+                <h3>Apéro & Dégustation</h3>
+                <p>
+                    Sur demande : Nous proposons également des paniers apéro (sorties crépusculaires-coucher du soleil) ou petit déj' (sorties du matin-lever du soleil).
+                </p>
+                <p>
+                    Formule avec dégustation d'huîtres et vin blanc.
+                </p>
+                <ul>
+                    <li style="margin-bottom:8px;"><i class="fa-solid fa-clock" style="color:var(--teal-accent); margin-right:10px;"></i>Sorties Lever & Coucher de soleil</li>
+                    <li style="margin-bottom:8px;"><i class="fa-solid fa-wine-glass" style="color:var(--teal-accent); margin-right:10px;"></i>Paniers gourmands sur mesure</li>
+                </ul>
+            </div>
+            <div class="detail-image img-food"></div>
+        </div>
+
+    </section>
+
+    <footer class="contact-footer" id="reservation">
+        <h2 style="font-size:3rem; color:var(--white); margin-bottom:10px;">Prêt à embarquer ?</h2>
+        <p>Port du Teich - Au pied du Belvédère</p>
+        <a href="#" class="cta-big">RÉSERVER MA BALADE</a>
+        <br><br><br>
+        <div style="display:flex; justify-content:center; gap:30px; font-size:1.5rem;">
+            <i class="fa-brands fa-instagram"></i>
+            <i class="fa-brands fa-facebook"></i>
+            <i class="fa-solid fa-envelope"></i>
+        </div>
+        <p style="margin-top:50px; font-size:0.8rem;">© 2024 E-co Plaisance BA. Tous droits réservés.</p>
+    </footer>
+</Layout>
+
+<script>
+    // Animation d'entrée du titre et des actions
+    window.addEventListener('load', () => {
+        const heroTitle = document.querySelector('.hero-title') as HTMLElement;
+        if(heroTitle) {
+            heroTitle.style.opacity = '1';
+            heroTitle.style.transform = 'translateY(0)';
+        }
+        
+        const heroSubtitle = document.querySelector('.hero-subtitle') as HTMLElement;
+        if(heroSubtitle) {
+            heroSubtitle.style.opacity = '1';
+            heroSubtitle.style.transform = 'translateY(0)';
+        }
+        const heroLead = document.querySelector('.hero-lead') as HTMLElement;
+        if (heroLead) {
+            heroLead.style.opacity = '1';
+            heroLead.style.transform = 'translateY(0)';
+        }
+        
+        // Animation du nouveau bloc d'actions
+        const heroActions = document.querySelector('.hero-actions') as HTMLElement;
+        if(heroActions) {
+            heroActions.style.opacity = '1';
+            heroActions.style.transform = 'translateY(0)';
+        }
+
+        // Gestion du diaporama Hero
+        const slides = document.querySelectorAll('.hero-slide');
+        let currentSlide = 0;
+
+        function nextSlide() {
+            slides[currentSlide].classList.remove('active');
+            currentSlide = (currentSlide + 1) % slides.length;
+            slides[currentSlide].classList.add('active');
+        }
+
+        setInterval(nextSlide, 4000); // Change toutes les 4 secondes
+    });
+
+    // Parallaxe simple au scroll
+    window.addEventListener('scroll', () => {
+        const scrolled = window.scrollY;
+
+        // Header sticky: transparent -> blanc
+        const siteHeader = document.getElementById('siteHeader');
+        if (siteHeader) {
+            if (scrolled > 30) siteHeader.classList.add('scrolled');
+            else siteHeader.classList.remove('scrolled');
+        }
+        
+        // Animation du volant de navire
+        const wheel = document.getElementById('wheel');
+        if(wheel) {
+            // Fait tourner le volant au scroll
+            wheel.style.transform = `rotate(${scrolled * 0.5}deg)`;
+        }
+
+        // Effet sur le background de nature
+        const bg = document.getElementById('parallax-bg');
+        if(bg) {
+            bg.style.transform = `translateY(${scrolled * 0.1}px)`;
+        }
+
+        // Apparition image histoire
+        const storyImg = document.querySelector('.reveal-img') as HTMLElement;
+        if(storyImg) {
+            const rect = storyImg.getBoundingClientRect();
+            if(rect.top < window.innerHeight - 100) {
+                storyImg.style.opacity = '1';
+                storyImg.style.transform = 'translateY(0)';
+            }
+        }
+    });
+
+    // Menu mobile
+    (() => {
+        const siteHeader = document.getElementById('siteHeader');
+        const menuToggle = document.querySelector('.menu-toggle');
+        const siteNav = document.getElementById('siteNav');
+
+        if (!siteHeader || !menuToggle || !siteNav) return;
+
+        // Init header state on first paint
+        if (window.scrollY > 30) siteHeader.classList.add('scrolled');
+
+        menuToggle.addEventListener('click', () => {
+            const isOpen = siteHeader.classList.toggle('open');
+            menuToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+        });
+
+        siteNav.querySelectorAll('a').forEach((link) => {
+            link.addEventListener('click', () => {
+                siteHeader.classList.remove('open');
+                menuToggle.setAttribute('aria-expanded', 'false');
+            });
+        });
+    })();
+</script>

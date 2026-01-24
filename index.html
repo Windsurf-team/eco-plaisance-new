@@ -6,7 +6,7 @@
     <title>E-co Plaisance | Location Bateaux & Nature</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Outfit:wght@200;400;500;600&family=Mrs+Saint+Delafield&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Outfit:wght@200;400;500;600&family=Mrs+Saint+Delafield&family=Caveat:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
@@ -165,6 +165,13 @@
 
         .hero-slide.active { opacity: 1; }
 
+        .hero-overlay {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(10, 26, 43, 0.5); /* Layer sombre pour lisibilité */
+            z-index: 2;
+        }
+
         .slide-1 { background-image: url('arriere-plan-bateau-eco-plaisance.png'); }
         .slide-2 { background-image: url('arriere-plan-bateau-eco-plaisance-2.png'); }
         .slide-3 { background-image: url('arriere-plan-bateau-eco-plaisance-3.png'); }
@@ -179,11 +186,11 @@
         }
 
         .hero-title {
-            font-size: 5vw;
-            letter-spacing: 8px;
+            font-size: 3.5rem;
+            letter-spacing: 4px;
             text-transform: uppercase;
-            line-height: 1;
-            margin-bottom: 10px;
+            line-height: 1.2;
+            margin-bottom: 20px;
             text-shadow: 0 10px 30px rgba(0,0,0,0.5);
             opacity: 0; 
             transform: translateY(50px);
@@ -356,7 +363,9 @@
             padding: 150px 10%;
             background-color: var(--white);
             color: var(--deep-water);
-            overflow: hidden;
+            overflow: visible; /* Permettre à la note de dépasser */
+            z-index: 20; /* Au-dessus de la section suivante */
+            padding-bottom: 150px; /* Espace réduit pour rapprocher la note du texte */
         }
 
         .floating-text {
@@ -530,35 +539,85 @@
             box-shadow: 20px 20px 50px rgba(0,0,0,0.5);
         }
 
-        /* --- SECTION 5: FONDATEUR --- */
-        .captain-section {
-            background: var(--white);
-            padding: 100px 10%;
-            color: var(--deep-water);
-            position: relative;
+        /* --- SECTION 5: FONDATEUR (Note Style) --- */
+        .captain-note-wrapper {
+            position: absolute;
+            bottom: -150px; /* Chevauchement sur la section suivante */
+            left: 0; 
+            width: 100%;
+            display: flex;
+            justify-content: flex-end; /* Décalage vers la droite */
+            z-index: 10;
+            pointer-events: none;
+            padding-right: 10%; /* Place libre à gauche */
+        }
+
+        @media (max-width: 1024px) {
+            .captain-note-wrapper {
+                justify-content: center; /* Retour au centre sur tablettes/mobiles */
+                padding-right: 20px;
+                padding-left: 20px;
+            }
         }
 
         .captain-card {
-            background: var(--sand);
-            padding: 60px;
-            border-radius: 3px;
+            pointer-events: auto;
+            background: #fdf6e3;
+            padding: 40px;
+            border-radius: 2px;
             position: relative;
-            margin-top: 50px;
-            box-shadow: 0 30px 60px rgba(0,0,0,0.1);
+            max-width: 650px;
+            width: 100%;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.4);
+            transform: rotate(-4deg);
+            border: 1px solid rgba(0,0,0,0.05);
+            /* Styles pour effet "Manuscrit" */
+            font-family: 'Caveat', cursive; 
+            color: #2c3e50; /* Couleur encre foncée */
+            font-size: 1.3rem;
+            line-height: 1.6;
         }
 
+        .captain-card h3 {
+            font-family: 'Caveat', cursive;
+            font-size: 2.2rem;
+            color: var(--teal-accent);
+            margin-bottom: 20px;
+        }
+
+        /* Effet "Scotch" en haut */
         .captain-card::before {
-            content: '"'; position: absolute;
-            top: -50px; left: 40px; font-size: 10rem; color: var(--deep-water); opacity: 0.1;
-            font-family: 'Cinzel', serif;
+            content: '';
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%) rotate(1deg);
+            width: 120px;
+            height: 35px;
+            background: rgba(255,255,255,0.25);
+            border: 1px solid rgba(255,255,255,0.2);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            backdrop-filter: blur(2px);
         }
 
-        .captain-flex { display: flex; gap: 40px; align-items: flex-start; }
+        .captain-flex { display: flex; gap: 40px; align-items: center; }
 
         .captain-photo {
-            width: 150px; height: 150px;
-            border-radius: 50%; object-fit: cover;
-            border: 5px solid var(--white); flex-shrink: 0;
+            width: 220px; /* Plus grande */
+            height: auto; aspect-ratio: 1/1.1;
+            object-fit: cover;
+            background: white;
+            padding: 12px 12px 45px 12px; /* Bas du Polaroid plus large */
+            box-shadow: 4px 4px 10px rgba(0,0,0,0.2);
+            
+            /* Sortir du cadre */
+            transform: rotate(-6deg); /* Rotation plus marquée */
+            margin-left: -80px; /* Décale la photo vers la gauche hors de la note */
+            margin-top: -30px;
+            
+            flex-shrink: 0;
+            border: 1px solid #e0e0e0;
+            z-index: 5; /* Passe au-dessus de la note */
         }
 
         /* --- FOOTER --- */
@@ -807,10 +866,13 @@
         position: relative;
         padding: 100px 5%;
         background-color: #050e17;
-        overflow: hidden;
+        /* OVERFLOW VISIBLE pour permettre le dépassement de la note */
+        overflow: hidden; 
         display: flex;
+        flex-direction: column; /* Pour empiler le contenu cadeau et la note */
         justify-content: center;
         align-items: center;
+        padding-bottom: 100px;
     }
 
     /* Fond texturé subtil */
@@ -1026,6 +1088,161 @@
         .ticket-left { height: 200px; }
         .ticket-right { padding: 30px; }
     }
+
+    /* --- SECTION LOCATION --- */
+    .location-section {
+        padding: 120px 5%;
+        background-color: var(--white);
+        color: var(--deep-water);
+        display: flex;
+        flex-wrap: wrap;
+        gap: 60px;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+    }
+
+    .location-info {
+        flex: 1;
+        min-width: 300px;
+        max-width: 600px;
+    }
+
+    .location-info h2 {
+        font-family: 'Cinzel', serif;
+        font-size: 3rem;
+        color: var(--deep-water);
+        margin-bottom: 25px;
+    }
+
+    .location-info p {
+        margin-bottom: 20px;
+        line-height: 1.7;
+        font-size: 1.05rem;
+        color: #444;
+    }
+
+    .location-highlights {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 25px;
+        margin-top: 35px;
+    }
+
+    .highlight-item {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+    }
+
+    .highlight-icon {
+        width: 45px;
+        height: 45px;
+        background: rgba(44, 110, 118, 0.1);
+        color: var(--teal-accent);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.2rem;
+        transition: all 0.3s ease;
+    }
+    
+    .highlight-item:hover .highlight-icon {
+        background: var(--teal-accent);
+        color: var(--white);
+    }
+    
+    .highlight-text {
+        font-weight: 500;
+        font-size: 0.95rem;
+    }
+
+    .location-map-container {
+        flex: 1;
+        min-width: 350px;
+        height: 550px;
+        background: #f0f0f0;
+        border-radius: 20px;
+        overflow: hidden;
+        box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        position: relative;
+        border: 4px solid var(--white);
+    }
+
+    .location-map-container iframe {
+        width: 100%;
+        height: 100%;
+        border: 0;
+        filter: grayscale(0.2) contrast(1.1);
+    }
+
+    /* --- SECTION DETAILS (Features) --- */
+    .details-section {
+        background: var(--white);
+        color: var(--deep-water);
+        padding-bottom: 80px;
+    }
+
+    .detail-block {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        width: 100%;
+        min-height: 500px;
+    }
+
+    .detail-block:nth-child(even) {
+        flex-direction: row-reverse;
+        background: #f4f4f4;
+    }
+
+    .detail-text {
+        flex: 1;
+        min-width: 350px;
+        padding: 60px 8%;
+    }
+
+    .detail-text h3 {
+        font-family: 'Cinzel', serif;
+        font-size: 2.5rem;
+        margin-bottom: 20px;
+        color: var(--deep-water);
+    }
+    
+    .detail-text p {
+        font-size: 1.1rem;
+        line-height: 1.8;
+        color: #555;
+        margin-bottom: 20px;
+    }
+
+    .detail-image {
+        flex: 1;
+        min-width: 350px;
+        height: 500px;
+        background-size: cover;
+        background-position: center;
+        position: relative;
+    }
+
+    .detail-image::after {
+        content: '';
+        position: absolute;
+        top: 0; left: 0; width: 100%; height: 100%;
+        background: rgba(10, 26, 43, 0.1);
+    }
+
+    .img-elec { background-image: url('https://images.unsplash.com/photo-1563861256338-76941198642a?q=80&w=2070&auto=format&fit=crop'); }
+    .img-tech { background-image: url('https://images.unsplash.com/photo-1563990666679-66850c954e7d?q=80&w=2074&auto=format&fit=crop'); }
+    .img-food { background-image: url('https://images.unsplash.com/photo-1621323386634-11812f866b1a?q=80&w=1932&auto=format&fit=crop'); }
+
+    /* Responsive détails */
+    @media (max-width: 768px) {
+        .detail-block { min-height: auto; flex-direction: column !important; }
+        .detail-image { height: 300px; width: 100%; }
+        .detail-text { padding: 40px 5%; }
+    }
         
     </style>
 </head>
@@ -1055,6 +1272,8 @@
         <div class="hero-slide slide-2"></div>
         <div class="hero-slide slide-3"></div>
         
+        <div class="hero-overlay"></div>
+
         <div class="wave-separator wave-bottom">
             <svg viewBox="0 0 1440 320" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
                 <path class="fill-white" fill-opacity="1" d="M0,224L48,213.3C96,203,192,181,288,181.3C384,181,480,203,576,224C672,245,768,267,864,261.3C960,256,1056,224,1152,197.3C1248,171,1344,149,1392,138.7L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
@@ -1063,8 +1282,8 @@
 
         <div class="hero-content">
             <p class="handwritten hero-subtitle">Port du Teich, Bassin d'Arcachon</p>
-            <p class="hero-lead">Location de bateaux électriques sans permis et paddles sur le Bassin d’Arcachon.</p>
-            <h1 class="hero-title">E-CO<br>PLAISANCE</h1>
+            <h1 class="hero-title">LOCATION DE BATEAUX<br>ÉLECTRIQUES SANS PERMIS</h1>
+            <p class="hero-lead">Explorez le Delta de la Leyre en silence. Location de paddles également disponible.</p>
 
             <div class="hero-actions">
                 <div class="btn-group">
@@ -1123,6 +1342,19 @@
                 <p style="font-style:italic; border-left:3px solid var(--teal-accent); padding-left:20px;">
                     "Nous avons une volonté forte : donner accès à tous. Notre ponton est sécurisé et facilité pour les Personnes à Mobilité Réduite."
                 </p>
+            </div>
+        </div>
+
+        <div class="captain-note-wrapper">
+            <div class="captain-card">
+                <div class="captain-flex">
+                    <img src="PhotoFred1.jpg" alt="Frédéric" class="captain-photo">
+                    <div>
+                        <p style="font-weight:700; font-size: 2.2rem; margin-bottom: 15px; color: var(--teal-accent);">Moi, c'est Frédéric !</p>
+                        <p style="margin-top:0;">Natif de Gujan-Mestras, j'ai retrouvé mes racines pour partager une navigation respectueuse.</p>
+                        <p style="margin-top:5px;">Je vous invite à découvrir la richesse de notre écosystème en silence et en douceur.</p>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -1184,6 +1416,43 @@
                 </div>
             </a>
 
+        </div>
+    </section>
+
+    <!-- SECTION LOCATION -->
+    <section class="location-section" id="lieu">
+        <div class="location-info">
+            <span class="handwritten" style="color: var(--teal-accent); font-size: 2.2rem;">Le Port du Teich</span>
+            <h2>Où nous trouver ?</h2>
+            <p>Sur le site aménagé du port du Teich, notre cabane d'accueil se situe au pied du belvédère, unique endroit surplombant le delta de l'Eyre.</p>
+            <p>En longeant le port de plaisance, vous apercevrez notre petite flotte composée de 5 bateaux électriques, 2 bateaux à moteurs thermiques ainsi que des Paddles.</p>
+            <p style="border-left: 3px solid var(--teal-accent); padding-left: 15px; font-style: italic; color: #555;">
+                Notre volonté forte est aussi de donner accès aux Personnes à Mobilité Réduite avec un accès facilité et sécurisé.
+            </p>
+            
+            <div class="location-highlights">
+                <div class="highlight-item">
+                    <div class="highlight-icon"><i class="fa-solid fa-umbrella-beach"></i></div>
+                    <span class="highlight-text">Baignade surveillée</span>
+                </div>
+                <div class="highlight-item">
+                    <div class="highlight-icon"><i class="fa-solid fa-utensils"></i></div>
+                    <span class="highlight-text">Aire pique-nique</span>
+                </div>
+                <div class="highlight-item">
+                    <div class="highlight-icon"><i class="fa-solid fa-person-walking"></i></div>
+                    <span class="highlight-text">Balade à pied</span>
+                </div>
+                <div class="highlight-item">
+                    <div class="highlight-icon"><i class="fa-solid fa-wheelchair"></i></div>
+                    <span class="highlight-text">Accès PMR</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="location-map-container">
+            <!-- Intégration Google Maps centrée sur le Port du Teich -->
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2838.384505677054!2d-1.0232432!3d44.6385388!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd54980a37703875%3A0x63346d6540c74c93!2sPort%20du%20Teich!5e0!3m2!1sfr!2sfr!4v1706025000000!5m2!1sfr!2sfr" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
         </div>
     </section>
 
@@ -1285,49 +1554,64 @@
         </div>
     </section>
 
-    <section class="nature-parallax">
-        <div class="parallax-layer layer-bg" id="parallax-bg"></div>
-        <div class="parallax-layer layer-fg"></div>
+    <!-- SECTION DETAILS SUPPLEMENTAIRES -->
+    <section class="details-section">
         
-        <div class="nature-text">
-            <h2 class="handwritten" style="font-size:3rem; color:var(--sand);">Silence & Beauté</h2>
-            <h3 style="font-size:2.5rem; margin-bottom:20px;">L'Écosystème Marin</h3>
-            <p>Devenez capitaine d'un instant. Explorez un havre de calme, de couleurs et de biodiversité. Nos bateaux respectent ce sanctuaire.</p>
+        <!-- Bloc 1 : Expérience Électrique / Capitaine -->
+        <div class="detail-block">
+            <div class="detail-text">
+                <span class="handwritten" style="color: var(--teal-accent); font-size: 2rem;">Capitaine d'un jour</span>
+                <h3>Navigation & Liberté</h3>
+                <p>
+                    Nos bateaux à propulsion électrique sont très accessibles par tous. Ils vous permettent un instant de devenir Capitaine, dans une navigation silencieuse et propre.
+                </p>
+                <p>
+                    Vous aurez le privilège de descendre La Leyre et de naviguer jusqu'au bassin pour des balades allant de 1h à 4h. Une connexion totale avec la nature.
+                </p>
+            </div>
+            <div class="detail-image img-elec"></div>
         </div>
-    </section>
 
-    <section class="sunset-section">
-        <div class="sunset-grid">
-            <div class="sunset-txt">
-                <h2 style="font-size:3.5rem;">L'Instant Magique</h2>
-                <h3 class="handwritten" style="font-size:2.5rem; color:var(--deep-water);">Paniers Apéro & Huîtres</h3>
-                <br>
-                <p>Sorties crépusculaires au coucher du soleil ou petit-déjeuner au lever du jour.</p>
-                <ul style="list-style:none; margin-top:20px; font-size:1.2rem;">
-                    <li style="margin-bottom:10px;"><i class="fa-solid fa-wine-glass" style="margin-right:10px;"></i> Vin blanc frais</li>
-                    <li style="margin-bottom:10px;"><i class="fa-regular fa-lemon" style="margin-right:10px;"></i> Dégustation d'huîtres</li>
-                    <li><i class="fa-solid fa-sun" style="margin-right:10px;"></i> Vue imprenable</li>
+        <!-- Bloc 2 : Technique / Sans Permis / Paddle -->
+        <div class="detail-block">
+            <div class="detail-text">
+                <span class="handwritten" style="color: var(--teal-accent); font-size: 2rem;">100% Accessible</span>
+                <h3>Confort & Facilité</h3>
+                <p>
+                    Bateaux sans permis, accessibles pour 7 personnes, équipés d'un taud soleil, vitesse maxi de 8km/h pour une autonomie de 8h. 
+                </p>
+                <p>
+                    Prise en main très facile, on vous aide pour démarrer en toute sérénité… 
+                </p>
+                <p>
+                    Le départ des Paddle se situe au même endroit et vous pourrez remonter la Leyre à la force de vos petits bras !!
+                </p>
+            </div>
+            <div class="detail-image img-tech"></div>
+        </div>
+
+        <!-- Bloc 3 : Ambiance / Apéro -->
+        <div class="detail-block">
+            <div class="detail-text">
+                <span class="handwritten" style="color: var(--teal-accent); font-size: 2rem;">L'Instant Magique</span>
+                <h3>Apéro & Dégustation</h3>
+                <p>
+                    Sur demande : Nous proposons également des paniers apéro (sorties crépusculaires-coucher du soleil) ou petit déj' (sorties du matin-lever du soleil).
+                </p>
+                <p>
+                    Formule avec dégustation d'huîtres et vin blanc.
+                </p>
+                <ul>
+                    <li style="margin-bottom:8px;"><i class="fa-solid fa-clock" style="color:var(--teal-accent); margin-right:10px;"></i>Sorties Lever & Coucher de soleil</li>
+                    <li style="margin-bottom:8px;"><i class="fa-solid fa-wine-glass" style="color:var(--teal-accent); margin-right:10px;"></i>Paniers gourmands sur mesure</li>
                 </ul>
             </div>
-            <div class="sunset-visual">
-                <img src="https://images.unsplash.com/photo-1615144574768-3d604e03b22a?q=80&w=1974&auto=format&fit=crop" alt="Sunset Oysters" class="sunset-img">
-            </div>
+            <div class="detail-image img-food"></div>
         </div>
+
     </section>
 
-    <section class="captain-section">
-        <div class="captain-card">
-            <div class="captain-flex">
-                <img src="https://images.unsplash.com/photo-1542596768-5d1d21f1cfb6?q=80&w=1887&auto=format&fit=crop" alt="Frédéric" class="captain-photo">
-                <div>
-                    <h3>Qui suis-je ?</h3>
-                    <p style="margin-top:10px;"><strong>Moi, c'est Frédéric !</strong> Natif de Gujan-Mestras.</p>
-                    <p style="margin-top:10px;">Après des années dans le privé, retour aux sources. Sensible à l'environnement et aux dérèglements climatiques, j'ai créé <em>E-co Plaisance BA</em> pour partager la mobilité douce.</p>
-                    <p style="margin-top:20px; font-family:'Mrs Saint Delafield'; font-size:2rem; color:var(--deep-water);">"Je vous invite à préserver notre écosystème marin."</p>
-                </div>
-            </div>
-        </div>
-    </section>
+    
 
     
 

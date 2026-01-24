@@ -1,0 +1,1233 @@
+/* --- CONFIGURATION GLOBALE --- */
+:root {
+    --deep-water: #0A1A2B;
+    --teal-accent: #2C6E76;
+    --sand: #E6D5B8;
+    --sunset: #D98C5F;
+    --white: #F9F9F9;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 90px;
+}
+
+body {
+    font-family: 'Outfit', sans-serif;
+    background-color: var(--deep-water);
+    color: var(--white);
+    overflow-x: hidden;
+}
+
+/* Barre de défilement stylisée */
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: var(--deep-water); }
+::-webkit-scrollbar-thumb { background: var(--teal-accent); border-radius: 4px; }
+
+h1, h2, h3 { font-family: 'Cinzel', serif; }
+.handwritten { font-family: 'Mrs Saint Delafield', cursive; color: var(--sand); }
+
+/* --- HEADER FIXE --- */
+.site-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 5%;
+    background: transparent;
+    transition: background 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.site-header.scrolled {
+    background: rgba(249, 249, 249, 0.95);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid rgba(10, 26, 43, 0.08);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+}
+
+.site-brand {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+}
+
+.site-logo {
+    height: 42px;
+    width: auto;
+    display: block;
+    transition: filter 0.3s ease;
+}
+
+/* Version “blanc” du logo quand le header est transparent */
+.site-header:not(.scrolled) .site-logo {
+    filter: brightness(0) invert(1);
+}
+
+.site-nav {
+    display: flex;
+    align-items: center;
+    gap: 22px;
+}
+
+.site-nav a {
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 500;
+    font-size: 0.95rem;
+    opacity: 0.9;
+    transition: opacity 0.2s ease, color 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+    color: var(--white);
+}
+
+.site-nav a:hover { opacity: 1; }
+
+.site-header.scrolled .site-nav a {
+    color: var(--deep-water);
+    opacity: 0.85;
+}
+
+.site-cta {
+    padding: 10px 18px;
+    border-radius: 999px;
+    border: 1px solid rgba(255,255,255,0.35);
+    background: rgba(255,255,255,0.12);
+    color: var(--white);
+    font-weight: 600;
+}
+
+.site-header.scrolled .site-nav .site-cta {
+    background: var(--deep-water);
+    border-color: transparent;
+    color: var(--white);
+    opacity: 1;
+}
+
+.menu-toggle {
+    display: none;
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    border: 1px solid rgba(255,255,255,0.25);
+    background: rgba(255,255,255,0.08);
+    color: var(--white);
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.site-header.scrolled .menu-toggle {
+    border-color: rgba(10, 26, 43, 0.12);
+    background: rgba(10, 26, 43, 0.04);
+    color: var(--deep-water);
+}
+
+/* --- HERO IMMERSIF --- */
+.hero-container {
+    min-height: 100vh; /* Permet de s'adapter au contenu */
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 110px; /* Espace pour le header fixe */
+    background: radial-gradient(circle at center, #1a4a5a 0%, #0A1A2B 100%);
+}
+
+/* Texture d'eau animée (utilisé pour les diapositives) */
+.hero-slide {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background-size: cover;
+    background-position: center;
+    opacity: 0;
+    transition: opacity 1.5s ease-in-out; /* Transition douce */
+    z-index: 1;
+}
+
+.hero-slide.active { opacity: 1; }
+
+.hero-overlay {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(10, 26, 43, 0.5); /* Layer sombre pour lisibilité */
+    z-index: 2;
+}
+
+.slide-1 { background-image: url('/arriere-plan-bateau-eco-plaisance.png'); }
+.slide-2 { background-image: url('/arriere-plan-bateau-eco-plaisance-2.png'); }
+.slide-3 { background-image: url('/arriere-plan-bateau-eco-plaisance-3.png'); }
+
+@keyframes pulseWater { 0% { transform: scale(1); } 100% { transform: scale(1.05); } }
+
+.hero-content {
+    z-index: 10;
+    text-align: center;
+    padding: 0 20px;
+    margin-bottom: 100px; /* Espace pour le bateau en bas */
+}
+
+.hero-title {
+    font-size: 3.5rem;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    line-height: 1.2;
+    margin-bottom: 20px;
+    text-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    opacity: 0; 
+    transform: translateY(50px);
+    transition: all 1.5s ease-out;
+}
+
+.hero-subtitle {
+    font-size: 2rem;
+    font-weight: 200;
+    letter-spacing: 2px;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 1.5s ease-out 0.3s;
+}
+
+.hero-lead {
+    font-size: 1.1rem;
+    font-weight: 300;
+    letter-spacing: 1px;
+    color: rgba(249,249,249,0.95);
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 1.5s ease-out 0.45s;
+}
+
+/* --- NOUVEAUX STYLES HERO (BOUTONS & AVIS) --- */
+.hero-actions {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+    margin-top: 40px;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 1.5s ease-out 0.6s;
+}
+
+.btn-group {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+/* Bouton Principal */
+.btn-primary {
+    padding: 15px 35px;
+    background: linear-gradient(135deg, var(--teal-accent) 0%, #1a4a5a 100%);
+    color: var(--white);
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 600;
+    letter-spacing: 1px;
+    box-shadow: 0 10px 20px rgba(44, 110, 118, 0.4);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.btn-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 30px rgba(44, 110, 118, 0.6);
+}
+
+/* Bouton Secondaire */
+.btn-secondary {
+    padding: 15px 35px;
+    background: transparent;
+    color: var(--white);
+    border: 1px solid rgba(255,255,255,0.3);
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.btn-secondary:hover {
+    background: rgba(255,255,255,0.1);
+    border-color: var(--white);
+}
+
+/* Preuve Sociale */
+.social-proof {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(5px);
+    padding: 10px 25px;
+    border-radius: 50px;
+    border: 1px solid rgba(255,255,255,0.1);
+}
+
+.avatars { display: flex; align-items: center; }
+
+.avatars img, .avatars .more-badge {
+    width: 35px; height: 35px;
+    border-radius: 50%;
+    border: 2px solid var(--deep-water);
+    object-fit: cover;
+    margin-left: -12px;
+}
+.avatars img:first-child { margin-left: 0; }
+
+.avatars .more-badge {
+    background: var(--deep-water);
+    color: var(--white);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.7rem; font-weight: bold;
+    z-index: 2;
+}
+
+.rating-text {
+    display: flex; flex-direction: column;
+    line-height: 1.2; text-align: left;
+}
+
+.stars { color: var(--sand); font-size: 0.9rem; margin-bottom: 2px; }
+.google-score { font-size: 0.9rem; font-weight: 600; color: var(--white); }
+
+/* Le bateau flottant */
+.hero-boat {
+    position: absolute;
+    bottom: -50px;
+    right: 5%;
+    width: 50vw;
+    max-width: 500px;
+    z-index: 5;
+    filter: drop-shadow(0 20px 20px rgba(0,0,0,0.6));
+    animation: floatBoat 6s ease-in-out infinite;
+}
+
+@keyframes floatBoat {
+    0%, 100% { transform: translateY(0) rotate(1deg); }
+    50% { transform: translateY(-20px) rotate(-1deg); }
+}
+
+/* --- VAGUES & SÉPARATEURS ANIMÉS --- */
+.wave-separator {
+    position: absolute;
+    width: 100%;
+    line-height: 0;
+    z-index: 2;
+    height: 60px; /* Moins haute pour être plus légère */
+}
+.wave-separator svg { display: block; width: 100%; height: 60px; }
+.wave-separator svg path { transform-origin: center top; }
+.wave-top { top: -1px; transform: rotate(180deg); }
+.wave-bottom { bottom: 0; }
+.fill-dark { fill: var(--deep-water); }
+.fill-sand { fill: var(--sand); }
+.fill-white { fill: var(--white); }
+
+/* NOUVELLE ANIMATION DE LA VAGUE ICI */
+.wave-separator svg path {
+    transform-origin: bottom; /* L'animation part du bas */
+    animation: waveSwell 5s ease-in-out infinite; /* Animation fluide de 5 secondes */
+}
+
+@keyframes waveSwell {
+    0% { transform: scaleY(1) skewX(0deg); }
+    50% { transform: scaleY(1.15) skewX(-2deg); } /* La vague monte et se déforme légèrement */
+    100% { transform: scaleY(1) skewX(0deg); }
+}
+
+/* --- SECTION 1: L'HISTOIRE --- */
+.story-section {
+    position: relative;
+    padding: 150px 10%;
+    background-color: var(--white);
+    color: var(--deep-water);
+    overflow: visible; /* Permettre à la note de dépasser */
+    z-index: 20; /* Au-dessus de la section suivante */
+    padding-bottom: 150px; /* Espace réduit pour rapprocher la note du texte */
+}
+
+.floating-text {
+    position: absolute;
+    font-size: 10rem;
+    color: rgba(0,0,0,0.03);
+    font-family: 'Cinzel', serif;
+    top: 50px; left: -50px;
+    pointer-events: none;
+    white-space: nowrap;
+}
+
+.grid-story {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 80px;
+    align-items: center;
+}
+
+.story-img-wrapper { position: relative; }
+
+.story-video-container {
+    position: relative; /* Pour positionner l'overlay */
+    width: 100%;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    aspect-ratio: 16/9;
+    background: #000;
+}
+
+/* Overlay pour bloquer les clics sur YouTube */
+.story-video-overlay {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    z-index: 2;
+    cursor: default;
+}
+
+.story-video-container iframe {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 115%; /* On agrandit pour dépasser du cadre */
+    height: 115%;
+    transform: translate(-50%, -50%); /* On centre l'agrandissement */
+    border: 0;
+    pointer-events: none;
+}
+
+.story-content h2 { font-size: 3rem; margin-bottom: 2rem; color: var(--deep-water); }
+.story-content p { font-size: 1.1rem; line-height: 1.8; margin-bottom: 1.5rem; color: #555; }
+.highlight { color: var(--teal-accent); font-weight: 600; }
+
+/* --- VOLANT ANIMÉ --- */
+.steering-wheel-wrapper {
+    position: absolute;
+    bottom: -60px;
+    right: -60px;
+    width: 250px;
+    height: 250px;
+    z-index: 5;
+    pointer-events: none;
+    filter: drop-shadow(0 10px 20px rgba(0,0,0,0.3));
+}
+
+.steering-wheel {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    transition: transform 0.1s linear;
+}
+
+@media (max-width: 768px) {
+    .steering-wheel-wrapper {
+        width: 150px;
+        height: 150px;
+        bottom: -40px;
+        right: -20px;
+    }
+}
+
+/* --- SECTION 2: LA FLOTTE --- */
+.fleet-section {
+    background-color: var(--deep-water);
+    padding: 100px 0;
+    position: relative;
+    background-image: radial-gradient(#2C6E76 1px, transparent 1px);
+    background-size: 40px 40px;
+}
+
+.fleet-header { text-align: center; margin-bottom: 60px; padding: 0 20px; }
+.fleet-header h2 { font-size: 3.5rem; color: var(--white); }
+
+.fleet-container {
+    display: flex;
+    overflow-x: auto;
+    gap: 40px;
+    padding: 20px 10%;
+    padding-bottom: 60px;
+    scroll-behavior: smooth;
+    -ms-overflow-style: none; scrollbar-width: none;
+}
+.fleet-container::-webkit-scrollbar { display: none; }
+
+.boat-card {
+    min-width: 350px;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    padding: 30px;
+    transition: transform 0.4s ease;
+    position: relative;
+}
+
+.boat-card:hover { transform: translateY(-15px) scale(1.02); background: rgba(255, 255, 255, 0.1); }
+
+.boat-icon { font-size: 3rem; color: var(--sand); margin-bottom: 20px; }
+.boat-card h3 { font-size: 1.8rem; margin-bottom: 10px; }
+.boat-specs { display: flex; gap: 15px; margin: 20px 0; flex-wrap: wrap;}
+.spec-pill { background: rgba(44, 110, 118, 0.5); padding: 5px 15px; border-radius: 50px; font-size: 0.8rem; }
+
+.price-tag {
+    position: absolute; top: 20px; right: 20px;
+    font-family: 'Cinzel', serif; font-weight: bold; color: var(--sand);
+}
+
+/* --- SECTION 3: PARALLAXE --- */
+.nature-parallax {
+    height: 100vh;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.parallax-layer {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background-size: cover; background-position: center;
+    will-change: transform;
+}
+
+.layer-bg { background-image: url('https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?q=80&w=2070&auto=format&fit=crop'); z-index: 1; }
+.layer-fg { background: linear-gradient(0deg, rgba(10,26,43,1) 0%, rgba(10,26,43,0) 60%); z-index: 2; }
+
+.nature-text {
+    z-index: 3; text-align: center; max-width: 800px; padding: 40px;
+    background: rgba(10, 26, 43, 0.7);
+    border-radius: 10px; backdrop-filter: blur(5px);
+    border: 1px solid var(--sand);
+}
+
+/* --- SECTION 4: APERO --- */
+.sunset-section {
+    background: linear-gradient(to bottom, var(--deep-water), var(--sunset));
+    padding: 120px 10%;
+    color: var(--white);
+    text-align: right;
+}
+
+.sunset-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: center;
+}
+
+.sunset-img {
+    width: 100%; border-radius: 20px;
+    transform: rotate(-3deg);
+    box-shadow: 20px 20px 50px rgba(0,0,0,0.5);
+}
+
+/* --- SECTION 5: FONDATEUR (Note Style) --- */
+.captain-note-wrapper {
+    position: absolute;
+    bottom: -150px; /* Chevauchement sur la section suivante */
+    left: 0; 
+    width: 100%;
+    display: flex;
+    justify-content: flex-end; /* Décalage vers la droite */
+    z-index: 10;
+    pointer-events: none;
+    padding-right: 10%; /* Place libre à gauche */
+}
+
+@media (max-width: 1024px) {
+    .captain-note-wrapper {
+        justify-content: center; /* Retour au centre sur tablettes/mobiles */
+        padding-right: 20px;
+        padding-left: 20px;
+    }
+}
+
+.captain-card {
+    pointer-events: auto;
+    background: #fdf6e3;
+    padding: 40px;
+    border-radius: 2px;
+    position: relative;
+    max-width: 650px;
+    width: 100%;
+    box-shadow: 0 25px 50px rgba(0,0,0,0.4);
+    transform: rotate(-4deg);
+    border: 1px solid rgba(0,0,0,0.05);
+    /* Styles pour effet "Manuscrit" */
+    font-family: 'Caveat', cursive; 
+    color: #2c3e50; /* Couleur encre foncée */
+    font-size: 1.3rem;
+    line-height: 1.6;
+}
+
+.captain-card h3 {
+    font-family: 'Caveat', cursive;
+    font-size: 2.2rem;
+    color: var(--teal-accent);
+    margin-bottom: 20px;
+}
+
+/* Effet "Scotch" en haut */
+.captain-card::before {
+    content: '';
+    position: absolute;
+    top: -15px;
+    left: 50%;
+    transform: translateX(-50%) rotate(1deg);
+    width: 120px;
+    height: 35px;
+    background: rgba(255,255,255,0.25);
+    border: 1px solid rgba(255,255,255,0.2);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    backdrop-filter: blur(2px);
+}
+
+.captain-flex { display: flex; gap: 40px; align-items: center; }
+
+.captain-photo {
+    width: 220px; /* Plus grande */
+    height: auto; aspect-ratio: 1/1.1;
+    object-fit: cover;
+    background: white;
+    padding: 12px 12px 45px 12px; /* Bas du Polaroid plus large */
+    box-shadow: 4px 4px 10px rgba(0,0,0,0.2);
+    
+    /* Sortir du cadre */
+    transform: rotate(-6deg); /* Rotation plus marquée */
+    margin-left: -80px; /* Décale la photo vers la gauche hors de la note */
+    margin-top: -30px;
+    
+    flex-shrink: 0;
+    border: 1px solid #e0e0e0;
+    z-index: 5; /* Passe au-dessus de la note */
+}
+
+/* --- FOOTER --- */
+.contact-footer {
+    background: #111;
+    padding: 80px 5%;
+    text-align: center;
+    color: #666;
+}
+
+.cta-big {
+    display: inline-block;
+    margin-top: 30px; padding: 20px 50px;
+    background: var(--sand); color: var(--deep-water);
+    font-family: 'Cinzel', serif; font-weight: bold; font-size: 1.2rem;
+    text-decoration: none;
+    clip-path: polygon(10% 0, 100% 0, 90% 100%, 0% 100%);
+    transition: all 0.3s;
+}
+
+.cta-big:hover {
+    transform: scale(1.05); background: var(--white);
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+}
+
+/* --- RESPONSIVE --- */
+@media (max-width: 768px) {
+    .hero-title { font-size: 3rem; }
+    .grid-story, .sunset-grid { grid-template-columns: 1fr; }
+    .captain-flex { flex-direction: column; text-align: center; align-items: center; }
+    .story-img { transform: translateY(0); margin-top: 30px; }
+    .hero-boat { right: -20%; width: 90vw; bottom: -80px; }
+    
+    .btn-group { flex-direction: column; width: 100%; align-items: center; }
+    .btn-primary, .btn-secondary { width: 90%; justify-content: center; }
+    .social-proof { flex-direction: column; gap: 10px; padding: 15px; }
+}
+
+@media (max-width: 900px) {
+    .menu-toggle { display: flex; }
+    .site-nav {
+        display: none;
+        position: absolute;
+        top: calc(100% + 10px);
+        left: 5%;
+        right: 5%;
+        flex-direction: column;
+        gap: 14px;
+        padding: 18px;
+        border-radius: 16px;
+        background: rgba(10, 26, 43, 0.92);
+        border: 1px solid rgba(255,255,255,0.12);
+        backdrop-filter: blur(10px);
+    }
+
+    .site-header.scrolled .site-nav {
+        background: rgba(249, 249, 249, 0.98);
+        border-color: rgba(10, 26, 43, 0.08);
+    }
+
+    .site-header.open .site-nav { display: flex; }
+    .site-nav a { width: 100%; text-align: center; padding: 10px 0; }
+}
+
+
+/* 2eme prompt */
+
+/* --- SECTION ACTIVITÉS : AWWWARDS BENTO STYLE --- */
+.aww-activities {
+padding: 120px 5%;
+background-color: var(--deep-water); /* Fond sombre uni pour la continuité */
+position: relative;
+}
+
+.aww-header {
+display: flex;
+justify-content: space-between;
+align-items: flex-end;
+margin-bottom: 60px;
+flex-wrap: wrap;
+gap: 20px;
+max-width: 1400px;
+margin-left: auto;
+margin-right: auto;
+border-bottom: 1px solid rgba(230, 213, 184, 0.2); /* Ligne subtile or */
+padding-bottom: 20px;
+}
+
+.aww-header h2 {
+font-family: 'Cinzel', serif;
+font-size: 4rem; /* Très gros titre éditorial */
+color: var(--white);
+line-height: 1;
+}
+
+.aww-header p {
+color: var(--sand);
+font-family: 'Outfit', sans-serif;
+text-transform: uppercase;
+letter-spacing: 2px;
+font-size: 0.9rem;
+max-width: 300px;
+text-align: right;
+}
+
+/* La Grille */
+.aww-grid {
+display: grid;
+grid-template-columns: repeat(3, 1fr); /* 3 colonnes égales */
+gap: 30px;
+max-width: 1400px;
+margin: 0 auto;
+}
+
+/* La Carte */
+.aww-card {
+position: relative;
+height: 600px; /* Cartes hautes et majestueuses */
+border-radius: 20px;
+overflow: hidden;
+text-decoration: none;
+transition: transform 0.4s ease;
+border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Image de fond */
+.aww-img {
+width: 100%;
+height: 100%;
+object-fit: cover;
+transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* Placeholders images */
+.img-boat { background-image: url('/activite-bateaux-electrique.jpg'); }
+.img-port { background-image: url('/activite-balade-des-3-ports.jpg'); }
+.img-paddle { background-image: url('/activite-paddle.png'); }
+
+/* Pour gérer l'image en CSS directement ou via balise img, ici via div background pour faciliter le cover */
+.aww-bg {
+width: 100%; height: 100%; background-size: cover; background-position: center;
+transition: transform 0.8s ease;
+}
+
+/* Overlay sombre dégradé */
+.aww-overlay {
+position: absolute;
+top: 0; left: 0; width: 100%; height: 100%;
+background: linear-gradient(to bottom, rgba(10,26,43,0) 0%, rgba(10,26,43,0.8) 100%);
+z-index: 1;
+}
+
+/* Contenu (Texte) */
+.aww-content {
+position: absolute;
+bottom: 0;
+left: 0;
+width: 100%;
+padding: 40px;
+z-index: 2;
+display: flex;
+flex-direction: column;
+justify-content: flex-end;
+}
+
+/* Numéro décoratif (01, 02...) */
+.aww-num {
+font-family: 'Cinzel', serif;
+font-size: 5rem;
+color: rgba(255, 255, 255, 0.1);
+position: absolute;
+top: 20px;
+right: 30px;
+transition: color 0.3s;
+}
+
+.aww-card h3 {
+font-family: 'Cinzel', serif;
+font-size: 2rem;
+color: var(--white);
+margin-bottom: 10px;
+}
+
+.aww-card p {
+color: #ccc;
+font-size: 1rem;
+margin-bottom: 30px;
+opacity: 0.8;
+transform: translateY(10px);
+transition: all 0.4s ease;
+}
+
+/* Bouton cercle magnétique */
+.circle-btn {
+width: 60px;
+height: 60px;
+border-radius: 50%;
+background: rgba(255, 255, 255, 0.1);
+backdrop-filter: blur(5px);
+border: 1px solid rgba(255, 255, 255, 0.3);
+display: flex;
+align-items: center;
+justify-content: center;
+color: var(--white);
+font-size: 1.2rem;
+transition: all 0.3s ease;
+}
+
+/* --- EFFETS HOVER --- */
+.aww-card:hover {
+border-color: var(--sand); /* Bordure dorée au survol */
+transform: translateY(-10px);
+box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+}
+
+.aww-card:hover .aww-bg {
+transform: scale(1.1); /* Zoom doux de l'image */
+}
+
+.aww-card:hover .aww-num {
+color: rgba(230, 213, 184, 0.4); /* Le numéro s'allume un peu */
+}
+
+.aww-card:hover .circle-btn {
+background: var(--sand);
+color: var(--deep-water);
+transform: rotate(-45deg); /* Petite rotation dynamique */
+}
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+.aww-grid {
+    grid-template-columns: 1fr; /* Une seule colonne */
+}
+.aww-header {
+    flex-direction: column;
+    align-items: flex-start;
+}
+.aww-header p { text-align: left; }
+.aww-header h2 { font-size: 3rem; }
+.aww-card { height: 450px; }
+}
+
+/* --- SECTION CADEAU : BILLET / BOARDING PASS --- */
+.gift-section {
+position: relative;
+padding: 100px 5%;
+background-color: #050e17;
+/* OVERFLOW VISIBLE pour permettre le dépassement de la note */
+overflow: hidden; 
+display: flex;
+flex-direction: column; /* Pour empiler le contenu cadeau et la note */
+justify-content: center;
+align-items: center;
+padding-bottom: 100px;
+}
+
+/* Fond texturé subtil */
+.gift-section::before {
+content: "";
+position: absolute;
+top: 0; left: 0; width: 100%; height: 100%;
+background: radial-gradient(circle at 50% 50%, rgba(44, 110, 118, 0.15), transparent 60%);
+pointer-events: none;
+}
+
+.gift-container {
+display: grid;
+grid-template-columns: 1fr 1.2fr; /* Texte à gauche, Billet à droite plus large */
+gap: 60px;
+align-items: center;
+max-width: 1300px;
+width: 100%;
+position: relative;
+z-index: 2;
+}
+
+/* --- PARTIE TEXTE --- */
+.gift-content h2 {
+font-family: 'Cinzel', serif;
+font-size: 3.5rem;
+color: var(--white);
+margin-bottom: 20px;
+line-height: 1.1;
+}
+
+.gift-content h2 span {
+color: var(--sand);
+font-style: italic;
+display: block;
+}
+
+.gift-content p {
+color: #aaa;
+font-family: 'Outfit', sans-serif;
+font-size: 1.1rem;
+margin-bottom: 40px;
+}
+
+.gift-btn {
+padding: 18px 35px;
+background: var(--sand);
+color: var(--deep-water);
+text-decoration: none;
+font-family: 'Outfit', sans-serif;
+font-weight: bold;
+text-transform: uppercase;
+letter-spacing: 1px;
+clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
+transition: all 0.3s ease;
+display: inline-block;
+}
+
+.gift-btn:hover {
+background: var(--white);
+transform: translateY(-2px);
+box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+}
+
+/* --- LE BILLET (TICKET) --- */
+.ticket-visual {
+perspective: 1500px;
+display: flex;
+justify-content: center;
+}
+
+.ticket-wrapper {
+display: flex;
+width: 600px;
+height: 250px;
+background: var(--white);
+border-radius: 15px;
+overflow: hidden;
+box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+position: relative;
+animation: floatTicket 6s ease-in-out infinite;
+}
+
+.ticket-wrapper:hover {
+transform: scale(1.05) rotate(2deg);
+}
+
+@keyframes floatTicket {
+0%, 100% { transform: translateY(0) rotate(0deg); }
+50% { transform: translateY(-15px) rotate(1deg); }
+}
+
+/* Partie Gauche du Billet (Image) */
+.ticket-left {
+flex: 2;
+background-image: url('/activite-bateaux-electrique.jpg');
+background-size: cover;
+background-position: center;
+position: relative;
+display: flex;
+flex-direction: column;
+justify-content: space-between;
+padding: 25px;
+color: var(--white);
+}
+
+.ticket-left::after {
+content: '';
+position: absolute;
+top: 0; left: 0; width: 100%; height: 100%;
+background: linear-gradient(to right, rgba(10,26,43,0.7), rgba(10,26,43,0.3));
+}
+
+.ticket-info-overlay {
+position: relative;
+z-index: 2;
+}
+
+.ticket-brand {
+font-family: 'Cinzel', serif;
+letter-spacing: 2px;
+font-size: 0.9rem;
+opacity: 0.9;
+}
+
+.ticket-title {
+font-size: 2.2rem;
+font-family: 'Cinzel', serif;
+margin-top: 10px;
+line-height: 1;
+color: var(--sand);
+}
+
+.ticket-meta {
+position: relative;
+z-index: 2;
+display: flex;
+gap: 20px;
+font-family: 'Outfit', sans-serif;
+font-size: 0.8rem;
+text-transform: uppercase;
+letter-spacing: 1px;
+}
+
+/* La ligne de séparation pointillée */
+.ticket-divider {
+width: 0;
+border-right: 2px dashed #ccc;
+position: relative;
+background: var(--white);
+margin: 15px 0;
+}
+
+/* Les encoches (demi-cercles) */
+.ticket-divider::before, .ticket-divider::after {
+content: '';
+position: absolute;
+width: 30px; height: 30px;
+background-color: #050e17;
+border-radius: 50%;
+left: -15px;
+}
+
+.ticket-divider::before { top: -30px; }
+.ticket-divider::after { bottom: -30px; }
+
+/* Partie Droite du Billet (Stub) */
+.ticket-right {
+flex: 0.8;
+padding: 25px;
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+background: #f4f4f4;
+text-align: center;
+border-left: none;
+}
+
+.qr-fake {
+width: 80px; height: 80px;
+background-image: url('https://upload.wikimedia.org/wikipedia/commons/d/d0/QR_code_for_mobile_English_Wikipedia.svg');
+background-size: cover;
+opacity: 0.8;
+margin-bottom: 15px;
+}
+
+.ticket-code {
+font-family: 'Courier New', monospace;
+font-weight: bold;
+color: var(--deep-water);
+letter-spacing: 2px;
+font-size: 1.1rem;
+}
+
+.ticket-sub {
+font-size: 0.7rem;
+color: #888;
+text-transform: uppercase;
+margin-top: 5px;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+.gift-container { grid-template-columns: 1fr; text-align: center; }
+.ticket-wrapper { width: 100%; max-width: 500px; height: auto; flex-direction: column; margin: 0 auto; }
+.ticket-divider {
+    width: 100%; height: 0; border-right: none; border-bottom: 2px dashed #ccc; margin: 0;
+}
+.ticket-divider::before { left: -30px; top: -15px; }
+.ticket-divider::after { right: -30px; top: -15px; left: auto; bottom: auto; }
+.ticket-left { height: 200px; }
+.ticket-right { padding: 30px; }
+}
+
+/* --- SECTION LOCATION --- */
+.location-section {
+padding: 120px 5%;
+background-color: var(--white);
+color: var(--deep-water);
+display: flex;
+flex-wrap: wrap;
+gap: 60px;
+align-items: center;
+justify-content: center;
+position: relative;
+}
+
+.location-info {
+flex: 1;
+min-width: 300px;
+max-width: 600px;
+}
+
+.location-info h2 {
+font-family: 'Cinzel', serif;
+font-size: 3rem;
+color: var(--deep-water);
+margin-bottom: 25px;
+}
+
+.location-info p {
+margin-bottom: 20px;
+line-height: 1.7;
+font-size: 1.05rem;
+color: #444;
+}
+
+.location-highlights {
+display: grid;
+grid-template-columns: repeat(2, 1fr);
+gap: 25px;
+margin-top: 35px;
+}
+
+.highlight-item {
+display: flex;
+align-items: center;
+gap: 15px;
+}
+
+.highlight-icon {
+width: 45px;
+height: 45px;
+background: rgba(44, 110, 118, 0.1);
+color: var(--teal-accent);
+border-radius: 50%;
+display: flex;
+align-items: center;
+justify-content: center;
+font-size: 1.2rem;
+transition: all 0.3s ease;
+}
+
+.highlight-item:hover .highlight-icon {
+background: var(--teal-accent);
+color: var(--white);
+}
+
+.highlight-text {
+font-weight: 500;
+font-size: 0.95rem;
+}
+
+.location-map-container {
+flex: 1;
+min-width: 350px;
+height: 550px;
+background: #f0f0f0;
+border-radius: 20px;
+overflow: hidden;
+box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+position: relative;
+border: 4px solid var(--white);
+}
+
+.location-map-container iframe {
+width: 100%;
+height: 100%;
+border: 0;
+filter: grayscale(0.2) contrast(1.1);
+}
+
+/* --- SECTION DETAILS (Features) --- */
+.details-section {
+background: var(--white);
+color: var(--deep-water);
+padding-bottom: 80px;
+}
+
+.detail-block {
+display: flex;
+flex-wrap: wrap;
+align-items: center;
+width: 100%;
+min-height: 500px;
+}
+
+.detail-block:nth-child(even) {
+flex-direction: row-reverse;
+background: #f4f4f4;
+}
+
+.detail-text {
+flex: 1;
+min-width: 350px;
+padding: 60px 8%;
+}
+
+.detail-text h3 {
+font-family: 'Cinzel', serif;
+font-size: 2.5rem;
+margin-bottom: 20px;
+color: var(--deep-water);
+}
+
+.detail-text p {
+font-size: 1.1rem;
+line-height: 1.8;
+color: #555;
+margin-bottom: 20px;
+}
+
+.detail-image {
+flex: 1;
+min-width: 350px;
+height: 500px;
+background-size: cover;
+background-position: center;
+position: relative;
+}
+
+.detail-image::after {
+content: '';
+position: absolute;
+top: 0; left: 0; width: 100%; height: 100%;
+background: rgba(10, 26, 43, 0.1);
+}
+
+.img-elec { background-image: url('https://images.unsplash.com/photo-1563861256338-76941198642a?q=80&w=2070&auto=format&fit=crop'); }
+.img-tech { background-image: url('https://images.unsplash.com/photo-1563990666679-66850c954e7d?q=80&w=2074&auto=format&fit=crop'); }
+.img-food { background-image: url('https://images.unsplash.com/photo-1621323386634-11812f866b1a?q=80&w=1932&auto=format&fit=crop'); }
+
+/* Responsive détails */
+@media (max-width: 768px) {
+.detail-block { min-height: auto; flex-direction: column !important; }
+.detail-image { height: 300px; width: 100%; }
+.detail-text { padding: 40px 5%; }
+}
