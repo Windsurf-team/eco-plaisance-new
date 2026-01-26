@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 600" role="img" aria-label="Balise verte tribord">
+  <defs>
+    <linearGradient id="sky" x1="0" x2="0" y1="0" y2="1">
+      <stop offset="0" stop-color="#F9F9F9"/>
+      <stop offset="1" stop-color="#EAF2F6"/>
+    </linearGradient>
+    <linearGradient id="water" x1="0" x2="0" y1="0" y2="1">
+      <stop offset="0" stop-color="#2C6E76" stop-opacity="0.25"/>
+      <stop offset="1" stop-color="#2C6E76" stop-opacity="0.10"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="900" height="600" fill="url(#sky)"/>
+  <rect y="260" width="900" height="340" fill="url(#water)"/>
+
+  <!-- Chenal -->
+  <path d="M120 560 C 240 460, 330 410, 450 320 C 560 240, 660 190, 780 120" fill="none" stroke="#0A1A2B" stroke-opacity="0.18" stroke-width="22" stroke-linecap="round"/>
+  <path d="M140 560 C 260 468, 350 420, 470 330 C 580 252, 675 205, 800 130" fill="none" stroke="#F9F9F9" stroke-width="10" stroke-linecap="round"/>
+
+  <!-- Balise verte (tribord) -->
+  <g transform="translate(610,270)">
+    <ellipse cx="0" cy="240" rx="70" ry="16" fill="#0A1A2B" opacity="0.12"/>
+    <rect x="-10" y="120" width="20" height="140" rx="10" fill="#166B3B"/>
+    <circle cx="0" cy="105" r="48" fill="#1D8A4C"/>
+    <circle cx="0" cy="105" r="18" fill="#F9F9F9" opacity="0.35"/>
+    <text x="0" y="45" text-anchor="middle" font-family="Outfit, system-ui, -apple-system, Segoe UI, Roboto" font-size="28" fill="#0A1A2B" opacity="0.85">
+      Verte
+    </text>
+    <text x="0" y="75" text-anchor="middle" font-family="Outfit, system-ui, -apple-system, Segoe UI, Roboto" font-size="22" fill="#0A1A2B" opacity="0.65">
+      (tribord)
+    </text>
+  </g>
+
+  <!-- Indication gauche/droite -->
+  <g font-family="Outfit, system-ui, -apple-system, Segoe UI, Roboto" fill="#0A1A2B" opacity="0.55">
+    <text x="80" y="520" font-size="22">Gauche</text>
+    <text x="760" y="520" font-size="22">Droite</text>
+    <path d="M120 500 L 70 500" stroke="#0A1A2B" stroke-opacity="0.45" stroke-width="6" stroke-linecap="round"/>
+    <path d="M830 500 L 880 500" stroke="#0A1A2B" stroke-opacity="0.45" stroke-width="6" stroke-linecap="round"/>
+  </g>
+</svg>
