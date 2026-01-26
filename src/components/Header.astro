@@ -23,6 +23,17 @@
             </div>
         </div>
 
+        <div class="nav-dropdown">
+            <button class="nav-dropbtn">
+                Infos pratiques <i class="fa-solid fa-chevron-down" style="font-size: 0.8em; margin-left: 5px;"></i>
+            </button>
+            <div class="nav-drop-content">
+                <a href="/infos-pratiques#tarifs">Tarifs</a>
+                <a href="/infos-pratiques#horaires">Horaires</a>
+                <a href="/infos-pratiques#consignes">Consignes de navigation</a>
+            </div>
+        </div>
+
         <a href="/#cadeau">Carte Cadeau</a>
         <a href="/notre-flotte">Flotte</a>
         <a href="/#reservation" class="site-cta">Réserver</a>
@@ -65,15 +76,16 @@
             });
         });
         
-        // Mobile Dropdown Handling
-        const dropbtn = document.querySelector('.nav-dropbtn');
-        const dropdown = document.querySelector('.nav-dropdown');
-        if(dropbtn && dropdown) {
-            dropbtn.addEventListener('click', (e) => {
+        // Mobile Dropdown Handling (supports multiple dropdowns)
+        document.querySelectorAll('.nav-dropdown').forEach((dropdownEl) => {
+            const dropbtnEl = dropdownEl.querySelector('.nav-dropbtn');
+            if (!dropbtnEl) return;
+
+            dropbtnEl.addEventListener('click', (e) => {
                 // Mobile toggle
-                dropdown.classList.toggle('active');
+                dropdownEl.classList.toggle('active');
             });
-        }
+        });
     }
 </script>
 
