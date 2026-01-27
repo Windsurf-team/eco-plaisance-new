@@ -2,13 +2,15 @@
 import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+
+const baseUrl = import.meta.env.BASE_URL;
 ---
 
 <Layout title="La balade des 3 ports | E-co Plaisance">
     <Header />
 
     <!-- Hero Section specific for Balade des 3 ports -->
-    <section class="hero-container" style="min-height: 60vh; background: radial-gradient(circle at center, #1a4a5a 0%, #0A1A2B 100%);">
+    <section class="hero-container" style={`min-height: 60vh; background-image: linear-gradient(rgba(10, 26, 43, 0.55), rgba(10, 26, 43, 0.55)), url('${baseUrl}port-de-biganos_0.jpg'); background-size: cover; background-position: center; background-repeat: no-repeat;`}>
         <div class="hero-content">
             <p class="handwritten hero-subtitle">Port du Teich, Bassin d'Arcachon</p>
             <h1 class="hero-title">LA BALADE DES 3 PORTS</h1>
@@ -35,7 +37,7 @@ import Footer from '../components/Footer.astro';
                 <p>Son projet d'aménagement se poursuit et vous réserve de très belles surprises pour un séjour nature avec ses balades, ses aires de pique-nique et de jeux, son petit lac surveillé et bien sûr la réserve ornithologique unique en Europe.</p>
                 <p><strong>Prenez de la hauteur avec le belvédère : une nouveauté 2025 !!</strong></p>
             </div>
-            <div class="detail-image" style="/images/belvedere_1.jpg"></div>
+            <div class="detail-image" style={`background-image: url('${baseUrl}belvedere_1.jpg');`}></div>
         </div>
 
         <!-- Bloc 2: Port des Tuiles & Île de Malprat -->
@@ -47,7 +49,7 @@ import Footer from '../components/Footer.astro';
                 <p>L'île de Malprat tire son nom des « mauvais près », anciennes salines érigées à la fin du XVIIIème siècle, puis aménagées pour la pisciculture jusqu'au milieu du XXième siècle, vous naviguerez le long de ses richesses de biodiversité.</p>
                 <p>Réservation de balades avec la Maison des associations de Biganos. La zone étant très protégée, il est nécessaire de se renseigner pour connaître les jours et heures de sorties.</p>
             </div>
-            <div class="detail-image" style="background-image: url('https://images.unsplash.com/photo-1493558103817-58b2924bce98?q=80&w=2000&auto=format&fit=crop');"></div>
+            <div class="detail-image" style={`background-image: url('${baseUrl}Ile_malprat_0.jpg');`}></div>
         </div>
 
         <!-- Bloc 3: Port de Biganos -->
@@ -59,7 +61,7 @@ import Footer from '../components/Footer.astro';
                 <p><strong>Un port au cœur du patrimoine !</strong></p>
                 <a href="#reservation" class="cta-big" style="margin-top: 20px; font-size: 0.9rem; padding: 15px 30px;">Réservez votre marée !</a>
             </div>
-            <div class="detail-image" style="background-image: url('https://images.unsplash.com/photo-1500375592092-40eb2168fd21?q=80&w=2000&auto=format&fit=crop');"></div>
+            <div class="detail-image" style={`background-image: url('${baseUrl}port-de-biganos_0.jpg');`}></div>
         </div>
 
     </section>
