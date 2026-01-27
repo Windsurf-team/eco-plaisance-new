@@ -2,13 +2,15 @@
 import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+
+const baseUrl = import.meta.env.BASE_URL;
 ---
 
 <Layout title="Location Paddle | E-co Plaisance">
     <Header />
 
     <!-- Hero Section specific for Paddle Rental -->
-    <section class="hero-container" style="min-height: 60vh; background: radial-gradient(circle at center, #1a4a5a 0%, #0A1A2B 100%);">
+    <section class="hero-container" style={`min-height: 60vh; background-image: linear-gradient(rgba(10, 26, 43, 0.55), rgba(10, 26, 43, 0.55)), url('${baseUrl}paddle_soir-1-scaled.jpg'); background-size: cover; background-position: center; background-repeat: no-repeat;`}>
         <div class="hero-content">
             <p class="handwritten hero-subtitle">Port du Teich, Bassin d'Arcachon</p>
             <h1 class="hero-title">LOCATION PADDLE</h1>
@@ -34,7 +36,7 @@ import Footer from '../components/Footer.astro';
                 <p>Venez seul ou à plusieurs pour une balade tranquille, pour s'initier tout simplement ou pour pagayer et faire travailler votre ceinture abdominale !</p>
                 <a href="#reservation" class="cta-big" style="margin-top: 20px; font-size: 0.9rem; padding: 15px 30px;">Réservez votre créneau !</a>
             </div>
-            <div class="detail-image" style="background-image: url('https://images.unsplash.com/photo-1528909514045-2fa4ac7a08ba?q=80&w=2000&auto=format&fit=crop');"></div>
+            <div class="detail-image" style={`background-image: url('${baseUrl}paddle_soir-1-scaled.jpg');`}></div>
         </div>
 
         <!-- Bloc centre: Pack vacances -->
@@ -54,7 +56,7 @@ import Footer from '../components/Footer.astro';
                 <p>Nous vous proposons aussi de louer un pack sur la journée ou plusieurs jours si vous voulez découvrir d'autres sites de la région !</p>
                 <a href="#reservation" class="cta-big" style="margin-top: 20px; font-size: 0.9rem; padding: 15px 30px;">Réservez pour plusieurs jours !</a>
             </div>
-            <div class="detail-image" style="background-image: url('https://images.unsplash.com/photo-1518600506278-4e8ef466b810?q=80&w=2000&auto=format&fit=crop');"></div>
+            <div class="detail-image" style={`background-image: url('${baseUrl}ecoplaisance-pack-paddle.png'); background-size: contain; background-repeat: no-repeat; background-position: center; background-color: rgba(249, 249, 249, 0.95);`}></div>
         </div>
 
     </section>
