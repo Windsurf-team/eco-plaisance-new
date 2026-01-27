@@ -2,6 +2,8 @@
 import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+
+const baseUrl = import.meta.env.BASE_URL;
 ---
 
 <Layout title="Consignes de navigation | E-co Plaisance">
@@ -44,7 +46,7 @@ import Footer from '../components/Footer.astro';
 
         <!-- Illustration balise rouge (image à gauche, texte à droite) -->
         <div class="detail-block" style="flex-direction: row;">
-            <div class="detail-image" style="background-image: url('/balise-rouge-babord.svg'); background-size: contain; background-repeat: no-repeat; background-position: center; background-color: rgba(249,249,249,0.95);"></div>
+            <div class="detail-image" style={`background-image: url('${baseUrl}balise-rouge-babord.svg'); background-size: contain; background-repeat: no-repeat; background-position: center; background-color: rgba(249,249,249,0.95);`}></div>
             <div class="detail-text">
                 <span class="handwritten" style="color: var(--teal-accent); font-size: 2rem;">Balisage</span>
                 <h3>Balises rouges babord (= gauche)</h3>
@@ -61,7 +63,7 @@ import Footer from '../components/Footer.astro';
                 <p>Vous passez à sa droite, vous devez laisser la balise à babord (à gauche donc).</p>
                 <p><strong>Au retour c'est l'inverse</strong> (Sens conventionnel).</p>
             </div>
-            <div class="detail-image" style="background-image: url('/balise-verte-tribord.svg'); background-size: contain; background-repeat: no-repeat; background-position: center; background-color: rgba(249,249,249,0.95);"></div>
+            <div class="detail-image" style={`background-image: url('${baseUrl}balise-verte-tribord.svg'); background-size: contain; background-repeat: no-repeat; background-position: center; background-color: rgba(249,249,249,0.95);`}></div>
         </div>
 
         <!-- Suite des règles + contacts -->
