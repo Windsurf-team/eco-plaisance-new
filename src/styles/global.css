@@ -21,6 +21,11 @@ body {
     overflow-x: hidden;
 }
 
+html.nav-open,
+html.nav-open body {
+    overflow: hidden;
+}
+
 img,
 video,
 canvas,
@@ -669,6 +674,31 @@ h1, h2, h3 { font-family: 'Cinzel', serif; }
     color: #666;
 }
 
+.contact-footer .footer-title {
+    font-size: clamp(2rem, 6vw, 3rem);
+    color: var(--white);
+    margin-bottom: 10px;
+}
+
+.contact-footer .footer-social {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    font-size: 1.5rem;
+    flex-wrap: wrap;
+}
+
+.contact-footer .footer-legal {
+    margin-top: 50px;
+    font-size: 0.8rem;
+}
+
+@media (max-width: 480px) {
+    .contact-footer { padding: 60px 5%; }
+    .contact-footer .footer-social { gap: 18px; font-size: 1.35rem; }
+    .contact-footer .footer-legal { margin-top: 35px; }
+}
+
 .cta-big {
     display: inline-block;
     margin-top: 30px; 
@@ -728,6 +758,16 @@ h1, h2, h3 { font-family: 'Cinzel', serif; }
         backdrop-filter: blur(10px);
         max-height: calc(100vh - 120px);
         overflow: auto;
+    }
+
+    .site-nav a {
+        padding: 12px 0;
+        font-size: 1.05rem;
+    }
+
+    .site-cta {
+        width: 100%;
+        justify-content: center;
     }
 
     .site-header.scrolled .site-nav {

@@ -193,7 +193,7 @@ const baseUrl = import.meta.env.BASE_URL;
     .price-table {
         width: 100%;
         border-collapse: collapse;
-        min-width: 780px;
+        min-width: 720px;
         color: var(--deep-water);
         font-size: 0.95rem;
     }
@@ -219,5 +219,38 @@ const baseUrl = import.meta.env.BASE_URL;
     .price-table th:first-child {
         width: 160px;
         white-space: nowrap;
+    }
+
+    @media (max-width: 768px) {
+        .price-table {
+            min-width: 640px;
+            font-size: 0.9rem;
+        }
+
+        .price-table th,
+        .price-table td {
+            padding: 12px 12px;
+        }
+
+        .price-table thead th {
+            white-space: normal;
+        }
+
+        .price-table td:first-child,
+        .price-table th:first-child {
+            width: 130px;
+        }
+    }
+
+    @media (max-width: 420px) {
+        .price-table {
+            min-width: 600px;
+            font-size: 0.85rem;
+        }
+
+        .price-table th,
+        .price-table td {
+            padding: 10px 10px;
+        }
     }
 </style>

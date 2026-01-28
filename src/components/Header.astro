@@ -64,16 +64,21 @@ const baseUrl = import.meta.env.BASE_URL;
         // Init header state on first paint
         updateHeader();
 
-        menuToggle.addEventListener('click', () => {
-            const isOpen = siteHeader.classList.toggle('open');
+        function setMenuOpen(isOpen) {
+            siteHeader.classList.toggle('open', isOpen);
             menuToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+            document.documentElement.classList.toggle('nav-open', isOpen);
+        }
+
+        menuToggle.addEventListener('click', () => {
+            const isOpen = !siteHeader.classList.contains('open');
+            setMenuOpen(isOpen);
         });
 
         // Close menu when a link is clicked
         siteNav.querySelectorAll('a').forEach((link) => {
             link.addEventListener('click', () => {
-                siteHeader.classList.remove('open');
-                menuToggle.setAttribute('aria-expanded', 'false');
+                setMenuOpen(false);
             });
         });
         
@@ -83,9 +88,34 @@ const baseUrl = import.meta.env.BASE_URL;
             if (!dropbtnEl) return;
 
             dropbtnEl.addEventListener('click', (e) => {
+                // Prevent accidental navigation / keep it a pure toggle
+                e.preventDefault();
                 // Mobile toggle
                 dropdownEl.classList.toggle('active');
             });
+        });
+
+        // Close on outside click (mobile)
+        document.addEventListener('click', (e) => {
+            if (!siteHeader.classList.contains('open')) return;
+            const target = e.target;
+            if (!(target instanceof Node)) return;
+            if (siteHeader.contains(target)) return;
+            setMenuOpen(false);
+        });
+
+        // Close on Escape
+        document.addEventListener('keydown', (e) => {
+            if (e.key !== 'Escape') return;
+            if (!siteHeader.classList.contains('open')) return;
+            setMenuOpen(false);
+        });
+
+        // Close menu when switching to desktop layout
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 900 && siteHeader.classList.contains('open')) {
+                setMenuOpen(false);
+            }
         });
     }
 </script>
@@ -193,10 +223,12 @@ const baseUrl = import.meta.env.BASE_URL;
         color: var(--teal-accent) !important;
     }
 
-    /* Show the dropdown menu on hover */
-    .nav-dropdown:hover .nav-drop-content {
-        display: block;
-        animation: fadeInUp 0.3s ease;
+    /* Show the dropdown menu on hover (desktop only) */
+    @media (hover: hover) and (pointer: fine) {
+        .nav-dropdown:hover .nav-drop-content {
+            display: block;
+            animation: fadeInUp 0.3s ease;
+        }
     }
 
     @keyframes fadeInUp {
