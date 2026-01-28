@@ -305,9 +305,11 @@ const baseUrl = import.meta.env.BASE_URL;
             box-shadow: none;
             background: rgba(255,255,255,0.05);
             width: 100%;
-            margin-top: 0;
+            margin-top: 6px;
             display: none; 
             border: none;
+            border-radius: 12px;
+            overflow: hidden;
         }
 
         .nav-dropdown.active .nav-drop-content { display: block; }
@@ -321,7 +323,8 @@ const baseUrl = import.meta.env.BASE_URL;
 
         /* When header is scrolled, the mobile panel becomes light; switch dropdown to dark text */
         :global(.site-header.scrolled) .nav-drop-content {
-            background: rgba(10, 26, 43, 0.04);
+            background: rgba(10, 26, 43, 0.03);
+            border: 1px solid rgba(10, 26, 43, 0.08);
         }
 
         :global(.site-header.scrolled) .nav-drop-content a {

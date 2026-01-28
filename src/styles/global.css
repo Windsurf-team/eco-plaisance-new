@@ -91,9 +91,9 @@ h1, h2, h3 { font-family: 'Cinzel', serif; }
     filter: brightness(0) invert(1);
 }
 
-/* Version “foncée” du logo quand le header est clair */
+/* Header clair: garder le logo "normal" (évite un rendu cassé) */
 .site-header.scrolled .site-logo {
-    filter: brightness(0) saturate(100%);
+    filter: none;
 }
 
 .site-nav {
@@ -1359,8 +1359,12 @@ font-size: 0.95rem;
 
 .location-map-container {
 flex: 1;
-min-width: 350px;
-height: 550px;
+min-width: min(350px, 100%);
+width: min(720px, 100%);
+height: auto;
+aspect-ratio: 4 / 3;
+min-height: 340px;
+max-height: 70svh;
 background: #f0f0f0;
 border-radius: 20px;
 overflow: hidden;
@@ -1374,7 +1378,31 @@ border: 4px solid var(--white);
     .location-info { min-width: 0; width: 100%; }
     .location-info h2 { font-size: clamp(2rem, 6vw, 3rem); }
     .location-highlights { grid-template-columns: 1fr; }
-    .location-map-container { min-width: 0; width: 100%; height: 360px; }
+    .location-map-container {
+        min-width: 0;
+        width: 100%;
+        aspect-ratio: 16 / 10;
+        min-height: 320px;
+        max-height: 65svh;
+        border-width: 2px;
+        border-radius: 16px;
+    }
+}
+
+@media (max-width: 420px) {
+    .location-map-container {
+        min-height: 280px;
+    }
+
+    .location-map-container .map-open {
+        left: 12px;
+        right: 12px;
+        bottom: 12px;
+        justify-content: center;
+        text-align: center;
+        font-size: 0.9rem;
+        padding: 11px 14px;
+    }
 }
 
 .location-map-container iframe {
@@ -1382,6 +1410,7 @@ width: 100%;
 height: 100%;
 border: 0;
 filter: grayscale(0.2) contrast(1.1);
+display: block;
 }
 
 .location-map-container .map-open {
