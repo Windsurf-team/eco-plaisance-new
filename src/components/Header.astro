@@ -7,7 +7,7 @@ const baseUrl = import.meta.env.BASE_URL;
     </a>
 
     <button class="menu-toggle" type="button" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="siteNav">
-        <i class="fa-solid fa-bars"></i>
+        <i class="fa-solid fa-bars" id="menuIcon" aria-hidden="true"></i>
     </button>
 
     <nav class="site-nav" id="siteNav">
@@ -39,15 +39,17 @@ const baseUrl = import.meta.env.BASE_URL;
         <a href="/notre-flotte">Flotte</a>
         <a href="/#reservation" class="site-cta">Réserver</a>
     </nav>
+
+    <button class="nav-backdrop" type="button" aria-label="Fermer le menu" tabindex="-1"></button>
 </header>
 
 <script>
     // Header Sticky Effect
     function updateHeader() {
-        const siteHeader = document.getElementById('siteHeader');
-        if (siteHeader) {
-            if (window.scrollY > 30) siteHeader.classList.add('scrolled');
-            else siteHeader.classList.remove('scrolled');
+        const headerEl = document.getElementById('siteHeader');
+        if (headerEl) {
+            if (window.scrollY > 30) headerEl.classList.add('scrolled');
+            else headerEl.classList.remove('scrolled');
         }
     }
 
@@ -57,26 +59,42 @@ const baseUrl = import.meta.env.BASE_URL;
 
     // Mobile Menu Toggle
     const siteHeader = document.getElementById('siteHeader');
-    const menuToggle = document.querySelector('.menu-toggle');
+    const menuToggle = document.querySelector<HTMLButtonElement>('.menu-toggle');
     const siteNav = document.getElementById('siteNav');
+    const menuIcon = document.getElementById('menuIcon');
+    const navBackdrop = document.querySelector<HTMLButtonElement>('.nav-backdrop');
 
     if (siteHeader && menuToggle && siteNav) {
+        const headerEl = siteHeader;
+        const menuToggleEl = menuToggle;
+        const navEl = siteNav;
+
         // Init header state on first paint
         updateHeader();
 
         function setMenuOpen(isOpen) {
-            siteHeader.classList.toggle('open', isOpen);
-            menuToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+            headerEl.classList.toggle('open', isOpen);
+            menuToggleEl.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
             document.documentElement.classList.toggle('nav-open', isOpen);
+
+            if (menuIcon) {
+                menuIcon.classList.toggle('fa-bars', !isOpen);
+                menuIcon.classList.toggle('fa-xmark', isOpen);
+            }
+
+            if (!isOpen) {
+                // Reset dropdown state when closing
+                document.querySelectorAll('.nav-dropdown.active').forEach((el) => el.classList.remove('active'));
+            }
         }
 
-        menuToggle.addEventListener('click', () => {
-            const isOpen = !siteHeader.classList.contains('open');
+        menuToggleEl.addEventListener('click', () => {
+            const isOpen = !headerEl.classList.contains('open');
             setMenuOpen(isOpen);
         });
 
         // Close menu when a link is clicked
-        siteNav.querySelectorAll('a').forEach((link) => {
+        navEl.querySelectorAll('a').forEach((link) => {
             link.addEventListener('click', () => {
                 setMenuOpen(false);
             });
@@ -90,30 +108,38 @@ const baseUrl = import.meta.env.BASE_URL;
             dropbtnEl.addEventListener('click', (e) => {
                 // Prevent accidental navigation / keep it a pure toggle
                 e.preventDefault();
-                // Mobile toggle
-                dropdownEl.classList.toggle('active');
+                // Mobile toggle (and close others)
+                const willBeActive = !dropdownEl.classList.contains('active');
+                document.querySelectorAll('.nav-dropdown.active').forEach((el) => {
+                    if (el !== dropdownEl) el.classList.remove('active');
+                });
+                dropdownEl.classList.toggle('active', willBeActive);
             });
         });
 
+        if (navBackdrop) {
+            navBackdrop.addEventListener('click', () => setMenuOpen(false));
+        }
+
         // Close on outside click (mobile)
         document.addEventListener('click', (e) => {
-            if (!siteHeader.classList.contains('open')) return;
+            if (!headerEl.classList.contains('open')) return;
             const target = e.target;
             if (!(target instanceof Node)) return;
-            if (siteHeader.contains(target)) return;
+            if (headerEl.contains(target)) return;
             setMenuOpen(false);
         });
 
         // Close on Escape
         document.addEventListener('keydown', (e) => {
             if (e.key !== 'Escape') return;
-            if (!siteHeader.classList.contains('open')) return;
+            if (!headerEl.classList.contains('open')) return;
             setMenuOpen(false);
         });
 
         // Close menu when switching to desktop layout
         window.addEventListener('resize', () => {
-            if (window.innerWidth > 900 && siteHeader.classList.contains('open')) {
+            if (window.innerWidth > 900 && headerEl.classList.contains('open')) {
                 setMenuOpen(false);
             }
         });

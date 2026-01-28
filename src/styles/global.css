@@ -56,6 +56,12 @@ h1, h2, h3 { font-family: 'Cinzel', serif; }
     transition: background 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
 }
 
+.site-brand,
+.menu-toggle {
+    position: relative;
+    z-index: 3;
+}
+
 .site-header.scrolled {
     background: rgba(249, 249, 249, 0.95);
     backdrop-filter: blur(8px);
@@ -145,6 +151,18 @@ h1, h2, h3 { font-family: 'Cinzel', serif; }
     align-items: center;
     justify-content: center;
     cursor: pointer;
+}
+
+.nav-backdrop {
+    display: none;
+    position: fixed;
+    inset: 0;
+    border: none;
+    padding: 0;
+    margin: 0;
+    background: rgba(10, 26, 43, 0.55);
+    backdrop-filter: blur(2px);
+    z-index: 1;
 }
 
 .site-header.scrolled .menu-toggle {
@@ -743,21 +761,29 @@ h1, h2, h3 { font-family: 'Cinzel', serif; }
 
 @media (max-width: 900px) {
     .menu-toggle { display: flex; }
+
+    .site-header.open .nav-backdrop {
+        display: block;
+    }
+
     .site-nav {
         display: none;
-        position: absolute;
-        top: calc(100% + 10px);
-        left: 5%;
-        right: 5%;
+        position: fixed;
+        top: calc(78px + env(safe-area-inset-top));
+        left: 0;
+        right: 0;
         flex-direction: column;
         gap: 14px;
-        padding: 18px;
-        border-radius: 16px;
+        padding: 18px 5%;
+        padding-bottom: calc(18px + env(safe-area-inset-bottom));
+        border-radius: 0;
         background: rgba(10, 26, 43, 0.92);
         border: 1px solid rgba(255,255,255,0.12);
         backdrop-filter: blur(10px);
-        max-height: calc(100vh - 120px);
+        height: calc(100vh - 78px - env(safe-area-inset-top));
         overflow: auto;
+        -webkit-overflow-scrolling: touch;
+        z-index: 2;
     }
 
     .site-nav a {
