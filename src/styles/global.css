@@ -1278,7 +1278,7 @@ background: rgba(10, 26, 43, 0.1);
 
 .img-elec { background-image: url('/scoop_LRB_2.jpg'); }
 .img-tech { background-image: url('/scoop_LRB_1.jpg'); }
-.img-food { background-image: url('/petitdej.jpg'); }
+.img-food { background-image: url('/huitre.jpg'); }
 
 /* Responsive détails */
 @media (max-width: 768px) {
