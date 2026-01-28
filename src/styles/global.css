@@ -306,6 +306,17 @@ h1, h2, h3 { font-family: 'Cinzel', serif; }
     padding: 10px 25px;
     border-radius: 50px;
     border: 1px solid rgba(255,255,255,0.1);
+    text-decoration: none;
+    color: inherit;
+}
+
+.social-proof:hover {
+    background: rgba(255, 255, 255, 0.09);
+}
+
+.social-proof:focus-visible {
+    outline: 2px solid rgba(255, 255, 255, 0.7);
+    outline-offset: 3px;
 }
 
 .avatars { display: flex; align-items: center; }
@@ -1085,9 +1096,11 @@ border-left: none;
 
 .qr-fake {
 width: 80px; height: 80px;
-background-image: url('https://upload.wikimedia.org/wikipedia/commons/d/d0/QR_code_for_mobile_English_Wikipedia.svg');
-background-size: cover;
-opacity: 0.8;
+background-image: url('/logo.png');
+background-repeat: no-repeat;
+background-position: center;
+background-size: contain;
+opacity: 1;
 margin-bottom: 15px;
 }
 
