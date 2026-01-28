@@ -1095,7 +1095,7 @@ border-left: none;
 }
 
 .qr-fake {
-width: 80px; height: 80px;
+width: 140px; height: 140px;
 background-image: url('/logo.png');
 background-repeat: no-repeat;
 background-position: center;
@@ -1130,6 +1130,11 @@ margin-top: 5px;
 .ticket-divider::after { right: -30px; top: -15px; left: auto; bottom: auto; }
 .ticket-left { height: 200px; }
 .ticket-right { padding: 30px; }
+
+.qr-fake {
+    width: 120px;
+    height: 120px;
+}
 }
 
 /* --- SECTION LOCATION --- */
@@ -1277,7 +1282,7 @@ background: rgba(10, 26, 43, 0.1);
 }
 
 .img-elec { background-image: url('/scoop_LRB_2.jpg'); }
-.img-tech { background-image: url('/scoop_LRB_1.jpg'); }
+.img-tech { background-image: url('/bateau1.jpg'); }
 .img-food { background-image: url('/huitre.jpg'); }
 
 /* Responsive détails */
