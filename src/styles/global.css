@@ -808,21 +808,19 @@ h1, h2, h3 { font-family: 'Cinzel', serif; }
 }
 
 @media (max-width: 900px) {
+    .site-header {
+        background: rgba(249, 249, 249, 0.95);
+        backdrop-filter: blur(8px);
+        border-bottom: 1px solid rgba(10, 26, 43, 0.08);
+        box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+    }
+
+    /* Sur mobile, le header est blanc même sans scroll : on garde le logo en version normale */
+    .site-header:not(.scrolled) .site-logo {
+        filter: none;
+    }
+
     .menu-toggle { display: flex; }
-
-    .nav-backdrop {
-        display: block;
-        opacity: 0;
-        pointer-events: none;
-        transition: opacity 180ms ease;
-        z-index: 998;
-    }
-
-    .site-header.open .nav-backdrop {
-        opacity: 1;
-        pointer-events: auto;
-    }
-
     .site-nav {
         display: flex;
         position: fixed;
@@ -830,13 +828,9 @@ h1, h2, h3 { font-family: 'Cinzel', serif; }
         flex-direction: column;
         gap: 14px;
         padding: 18px;
-        padding-left: var(--gutter);
-        padding-right: var(--gutter);
-        padding-top: calc(var(--header-height) + env(safe-area-inset-top) + 14px);
-        padding-bottom: calc(18px + env(safe-area-inset-bottom));
-        border-radius: 0;
+        border-radius: 16px;
         background: rgba(10, 26, 43, 0.92);
-        border: none;
+        border: 1px solid rgba(255,255,255,0.12);
         backdrop-filter: blur(10px);
         overflow: auto;
         -webkit-overflow-scrolling: touch;
@@ -854,25 +848,8 @@ h1, h2, h3 { font-family: 'Cinzel', serif; }
         border-color: rgba(10, 26, 43, 0.08);
     }
 
-    .site-header.open .site-nav {
-        opacity: 1;
-        transform: translateY(0);
-        visibility: visible;
-        pointer-events: auto;
-        transition: opacity 180ms ease, transform 180ms ease, visibility 0s;
-    }
-
-    .site-nav a {
-        width: 100%;
-        text-align: center;
-        padding: 12px 0;
-        font-size: 1.05rem;
-    }
-
-    .site-cta {
-        width: 100%;
-        justify-content: center;
-    }
+    .site-header.open .site-nav { display: flex; }
+    .site-nav a { width: 100%; text-align: center; padding: 10px 0; }
 }
 
 
