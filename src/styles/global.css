@@ -5,13 +5,17 @@
     --sand: #E6D5B8;
     --sunset: #D98C5F;
     --white: #F9F9F9;
+
+    --gutter: clamp(16px, 5vw, 70px);
+    --section-y: clamp(64px, 10vw, 140px);
+    --header-height: 78px;
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
 html {
     scroll-behavior: smooth;
-    scroll-padding-top: 90px;
+    scroll-padding-top: var(--header-height);
 }
 
 body {
@@ -173,13 +177,13 @@ h1, h2, h3 { font-family: 'Cinzel', serif; }
 
 /* --- HERO IMMERSIF --- */
 .hero-container {
-    min-height: 100vh; /* Permet de s'adapter au contenu */
+    min-height: 100svh; /* Better on mobile browsers */
     position: relative;
     overflow: hidden;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding-top: 110px; /* Espace pour le header fixe */
+    padding-top: calc(var(--header-height) + 32px); /* Espace pour le header fixe */
     background: radial-gradient(circle at center, #1a4a5a 0%, #0A1A2B 100%);
 }
 
@@ -434,7 +438,7 @@ h1, h2, h3 { font-family: 'Cinzel', serif; }
 
 .floating-text {
     position: absolute;
-    font-size: 10rem;
+    font-size: clamp(4rem, 12vw, 10rem);
     color: rgba(0,0,0,0.03);
     font-family: 'Cinzel', serif;
     top: 50px; left: -50px;
@@ -560,7 +564,8 @@ h1, h2, h3 { font-family: 'Cinzel', serif; }
 
 /* --- SECTION 3: PARALLAXE --- */
 .nature-parallax {
-    height: 100vh;
+    min-height: 100svh;
+    height: auto;
     position: relative;
     overflow: hidden;
     display: flex;
@@ -725,7 +730,9 @@ h1, h2, h3 { font-family: 'Cinzel', serif; }
     color: var(--deep-water);
     font-family: 'Outfit', sans-serif; 
     font-weight: bold; 
-    font-size: 1rem; /* Adjusted to match others approx or let it be 1.2rem? gift-btn is default size. let's stick closer to gift-btn */
+        padding: 18px;
+        padding-left: var(--gutter);
+        padding-right: var(--gutter);
     text-transform: uppercase;
     letter-spacing: 1px;
     text-decoration: none;
@@ -752,6 +759,35 @@ h1, h2, h3 { font-family: 'Cinzel', serif; }
     .btn-group { flex-direction: column; width: 100%; align-items: center; }
     .btn-primary, .btn-secondary { width: 90%; justify-content: center; }
     .social-proof { flex-direction: column; gap: 10px; padding: 15px; }
+
+    .floating-text { left: -10px; top: 25px; opacity: 0.6; }
+    .fleet-header h2 { font-size: clamp(2.2rem, 7vw, 3.5rem); }
+    .story-content h2 { font-size: clamp(2rem, 7vw, 3rem); }
+    .gift-content h2 { font-size: clamp(2.2rem, 7vw, 3.5rem); }
+    .nature-text { padding: 24px; margin: 0 var(--gutter); }
+
+    .sunset-section {
+        padding: var(--section-y) var(--gutter);
+        text-align: left;
+    }
+
+    .fleet-container {
+        padding-left: var(--gutter);
+        padding-right: var(--gutter);
+    }
+
+    /* Many pages set inline padding-top on details-section */
+    .details-section { padding-top: 80px !important; }
+}
+
+@media (max-width: 900px) {
+    :root {
+        --header-height: 72px;
+    }
+}
+
+@media (max-width: 420px) {
+    .floating-text { display: none; }
 }
 
 @media (max-width: 480px) {
@@ -764,36 +800,27 @@ h1, h2, h3 { font-family: 'Cinzel', serif; }
 
     .site-header.open .nav-backdrop {
         display: block;
+        z-index: 998;
     }
 
     .site-nav {
         display: none;
         position: fixed;
-        top: calc(78px + env(safe-area-inset-top));
-        left: 0;
-        right: 0;
+        inset: 0;
         flex-direction: column;
         gap: 14px;
-        padding: 18px 5%;
+        padding: 18px;
+        padding-left: var(--gutter);
+        padding-right: var(--gutter);
+        padding-top: calc(var(--header-height) + env(safe-area-inset-top) + 14px);
         padding-bottom: calc(18px + env(safe-area-inset-bottom));
         border-radius: 0;
         background: rgba(10, 26, 43, 0.92);
-        border: 1px solid rgba(255,255,255,0.12);
+        border: none;
         backdrop-filter: blur(10px);
-        height: calc(100vh - 78px - env(safe-area-inset-top));
         overflow: auto;
         -webkit-overflow-scrolling: touch;
-        z-index: 2;
-    }
-
-    .site-nav a {
-        padding: 12px 0;
-        font-size: 1.05rem;
-    }
-
-    .site-cta {
-        width: 100%;
-        justify-content: center;
+        z-index: 999;
     }
 
     .site-header.scrolled .site-nav {
@@ -802,7 +829,18 @@ h1, h2, h3 { font-family: 'Cinzel', serif; }
     }
 
     .site-header.open .site-nav { display: flex; }
-    .site-nav a { width: 100%; text-align: center; padding: 10px 0; }
+
+    .site-nav a {
+        width: 100%;
+        text-align: center;
+        padding: 12px 0;
+        font-size: 1.05rem;
+    }
+
+    .site-cta {
+        width: 100%;
+        justify-content: center;
+    }
 }
 
 
@@ -865,7 +903,6 @@ text-decoration: none;
 transition: transform 0.4s ease;
 border: 1px solid rgba(255, 255, 255, 0.1);
 }
-
 /* Image de fond */
 .aww-img {
 width: 100%;
