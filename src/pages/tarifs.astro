@@ -47,35 +47,35 @@ const baseUrl = import.meta.env.BASE_URL;
                         </thead>
                         <tbody>
                             <tr>
-                                <td>SCOOP 2</td>
-                                <td>70 €</td>
-                                <td>100 €</td>
-                                <td>120 €</td>
-                                <td>140 €</td>
-                                <td>160 €</td>
-                                <td>plus... nous consulter</td>
+                                <td data-label="Type">SCOOP 2</td>
+                                <td data-label="1h">70 €</td>
+                                <td data-label="1h30">100 €</td>
+                                <td data-label="2h">120 €</td>
+                                <td data-label="2h30">140 €</td>
+                                <td data-label="3h">160 €</td>
+                                <td data-label="3h et + (balade des 3 ports)">plus... nous consulter</td>
                             </tr>
                             <tr>
-                                <td>LEGEND PMR</td>
-                                <td>90 €</td>
-                                <td>120 €</td>
-                                <td>150 €</td>
-                                <td>180 €</td>
-                                <td>200 €</td>
-                                <td>plus... nous consulter</td>
+                                <td data-label="Type">LEGEND PMR</td>
+                                <td data-label="1h">90 €</td>
+                                <td data-label="1h30">120 €</td>
+                                <td data-label="2h">150 €</td>
+                                <td data-label="2h30">180 €</td>
+                                <td data-label="3h">200 €</td>
+                                <td data-label="3h et + (balade des 3 ports)">plus... nous consulter</td>
                             </tr>
                             <tr>
-                                <td>OPEN</td>
-                                <td>-</td>
-                                <td>-</td>
-                                <td>-</td>
-                                <td>-</td>
-                                <td>-</td>
-                                <td>240 €</td>
+                                <td data-label="Type">OPEN</td>
+                                <td data-label="1h">-</td>
+                                <td data-label="1h30">-</td>
+                                <td data-label="2h">-</td>
+                                <td data-label="2h30">-</td>
+                                <td data-label="3h">-</td>
+                                <td data-label="3h et + (balade des 3 ports)">240 €</td>
                             </tr>
                             <tr>
-                                <td>Groupes</td>
-                                <td colspan="6">Possibilité de sortie organisée sur plusieurs bateaux, nous consulter...</td>
+                                <td data-label="Type">Groupes</td>
+                                <td data-label="Détails" colspan="6">Possibilité de sortie organisée sur plusieurs bateaux, nous consulter...</td>
                             </tr>
                         </tbody>
                     </table>
@@ -105,11 +105,11 @@ const baseUrl = import.meta.env.BASE_URL;
                         </thead>
                         <tbody>
                             <tr>
-                                <td>Paddle</td>
-                                <td>20 €</td>
-                                <td>25 €</td>
-                                <td>30 €</td>
-                                <td>35 €</td>
+                                <td data-label="Type">Paddle</td>
+                                <td data-label="1h">20 €</td>
+                                <td data-label="1h30">25 €</td>
+                                <td data-label="2h">30 €</td>
+                                <td data-label="3h ou +">35 €</td>
                             </tr>
                         </tbody>
                     </table>
@@ -138,11 +138,11 @@ const baseUrl = import.meta.env.BASE_URL;
                         </thead>
                         <tbody>
                             <tr>
-                                <td>Pack</td>
-                                <td>45 €</td>
-                                <td>70 €</td>
-                                <td>95 €</td>
-                                <td>130 €</td>
+                                <td data-label="Durée">Pack</td>
+                                <td data-label="1 jour">45 €</td>
+                                <td data-label="2 jours">70 €</td>
+                                <td data-label="3 jours">95 €</td>
+                                <td data-label="4 jours et +">130 €</td>
                             </tr>
                         </tbody>
                     </table>
@@ -251,6 +251,65 @@ const baseUrl = import.meta.env.BASE_URL;
         .price-table th,
         .price-table td {
             padding: 10px 10px;
+        }
+    }
+
+    /* Excellent mobile layout: stack rows as cards */
+    @media (max-width: 768px) {
+        .table-wrap {
+            overflow: visible;
+            background: transparent;
+            border: none;
+        }
+
+        .price-table {
+            min-width: 0;
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            font-size: 0.95rem;
+        }
+
+        .price-table thead {
+            display: none;
+        }
+
+        .price-table tbody tr {
+            display: block;
+            margin: 12px 0;
+            background: rgba(249, 249, 249, 0.98);
+            border: 1px solid rgba(10, 26, 43, 0.10);
+            border-radius: 14px;
+            overflow: hidden;
+        }
+
+        .price-table td {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            gap: 12px;
+            padding: 12px 14px;
+            border-bottom: 1px solid rgba(10, 26, 43, 0.06);
+        }
+
+        .price-table td::before {
+            content: attr(data-label);
+            font-weight: 700;
+            color: rgba(10, 26, 43, 0.75);
+            max-width: 55%;
+        }
+
+        .price-table td[colspan] {
+            justify-content: flex-start;
+        }
+
+        .price-table td[colspan]::before {
+            content: attr(data-label);
+            margin-right: 10px;
+        }
+
+        .price-table tbody tr td:last-child {
+            border-bottom: none;
         }
     }
 </style>

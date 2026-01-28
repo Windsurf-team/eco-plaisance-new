@@ -63,7 +63,7 @@ h1, h2, h3 { font-family: 'Cinzel', serif; }
 .site-brand,
 .menu-toggle {
     position: relative;
-    z-index: 3;
+    z-index: 1002;
 }
 
 .site-header.scrolled {
@@ -91,6 +91,11 @@ h1, h2, h3 { font-family: 'Cinzel', serif; }
     filter: brightness(0) invert(1);
 }
 
+/* Version “foncée” du logo quand le header est clair */
+.site-header.scrolled .site-logo {
+    filter: brightness(0) saturate(100%);
+}
+
 .site-nav {
     display: flex;
     align-items: center;
@@ -112,7 +117,7 @@ h1, h2, h3 { font-family: 'Cinzel', serif; }
 
 .site-header.scrolled .site-nav a {
     color: var(--deep-water);
-    opacity: 0.85;
+    opacity: 0.95;
 }
 
 .site-cta {
@@ -730,14 +735,21 @@ h1, h2, h3 { font-family: 'Cinzel', serif; }
     color: var(--deep-water);
     font-family: 'Outfit', sans-serif; 
     font-weight: bold; 
-        padding: 18px;
-        padding-left: var(--gutter);
-        padding-right: var(--gutter);
     text-transform: uppercase;
     letter-spacing: 1px;
     text-decoration: none;
     clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
     transition: all 0.3s ease;
+    max-width: 100%;
+}
+
+@media (max-width: 480px) {
+    .cta-big {
+        width: 100%;
+        max-width: 520px;
+        padding: 16px 22px;
+        text-align: center;
+    }
 }
 
 .cta-big:hover {
@@ -798,13 +810,21 @@ h1, h2, h3 { font-family: 'Cinzel', serif; }
 @media (max-width: 900px) {
     .menu-toggle { display: flex; }
 
-    .site-header.open .nav-backdrop {
+    .nav-backdrop {
         display: block;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 180ms ease;
         z-index: 998;
     }
 
+    .site-header.open .nav-backdrop {
+        opacity: 1;
+        pointer-events: auto;
+    }
+
     .site-nav {
-        display: none;
+        display: flex;
         position: fixed;
         inset: 0;
         flex-direction: column;
@@ -821,6 +841,12 @@ h1, h2, h3 { font-family: 'Cinzel', serif; }
         overflow: auto;
         -webkit-overflow-scrolling: touch;
         z-index: 999;
+        will-change: transform, opacity;
+        opacity: 0;
+        transform: translateY(-8px);
+        visibility: hidden;
+        pointer-events: none;
+        transition: opacity 180ms ease, transform 180ms ease, visibility 0s linear 180ms;
     }
 
     .site-header.scrolled .site-nav {
@@ -828,7 +854,13 @@ h1, h2, h3 { font-family: 'Cinzel', serif; }
         border-color: rgba(10, 26, 43, 0.08);
     }
 
-    .site-header.open .site-nav { display: flex; }
+    .site-header.open .site-nav {
+        opacity: 1;
+        transform: translateY(0);
+        visibility: visible;
+        pointer-events: auto;
+        transition: opacity 180ms ease, transform 180ms ease, visibility 0s;
+    }
 
     .site-nav a {
         width: 100%;

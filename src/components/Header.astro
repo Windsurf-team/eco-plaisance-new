@@ -75,7 +75,9 @@ const baseUrl = import.meta.env.BASE_URL;
         function setMenuOpen(isOpen) {
             headerEl.classList.toggle('open', isOpen);
             menuToggleEl.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+            menuToggleEl.setAttribute('aria-label', isOpen ? 'Fermer le menu' : 'Ouvrir le menu');
             document.documentElement.classList.toggle('nav-open', isOpen);
+            navEl.setAttribute('aria-hidden', isOpen ? 'false' : 'true');
 
             if (menuIcon) {
                 menuIcon.classList.toggle('fa-bars', !isOpen);
@@ -117,6 +119,19 @@ const baseUrl = import.meta.env.BASE_URL;
             });
         });
 
+        function closeAllDropdowns() {
+            document.querySelectorAll('.nav-dropdown.active').forEach((el) => el.classList.remove('active'));
+        }
+
+        // Close dropdowns when clicking outside (desktop/tablet as well)
+        document.addEventListener('click', (e) => {
+            const target = e.target;
+            if (!(target instanceof Node)) return;
+            const el = target instanceof Element ? target : null;
+            if (el && el.closest('.nav-dropdown')) return;
+            closeAllDropdowns();
+        });
+
         if (navBackdrop) {
             navBackdrop.addEventListener('click', () => setMenuOpen(false));
         }
@@ -133,8 +148,8 @@ const baseUrl = import.meta.env.BASE_URL;
         // Close on Escape
         document.addEventListener('keydown', (e) => {
             if (e.key !== 'Escape') return;
-            if (!headerEl.classList.contains('open')) return;
-            setMenuOpen(false);
+            if (headerEl.classList.contains('open')) setMenuOpen(false);
+            closeAllDropdowns();
         });
 
         // Close menu when switching to desktop layout
@@ -176,7 +191,7 @@ const baseUrl = import.meta.env.BASE_URL;
     /* Update button color when header is scrolled */
     :global(.site-header.scrolled) .nav-dropbtn {
         color: var(--deep-water);
-        opacity: 0.85;
+        opacity: 0.95;
     }
     :global(.site-header.scrolled) .nav-dropbtn:hover {
         opacity: 1;
@@ -257,6 +272,13 @@ const baseUrl = import.meta.env.BASE_URL;
         }
     }
 
+    /* Touch/tablet: no hover, so allow click-to-open using .active */
+    @media (hover: none) {
+        .nav-dropdown.active .nav-drop-content {
+            display: block;
+        }
+    }
+
     @keyframes fadeInUp {
         from { opacity: 0; transform: translateX(-50%) translateY(10px); }
         to { opacity: 1; transform: translateX(-50%) translateY(0); }
@@ -288,15 +310,22 @@ const baseUrl = import.meta.env.BASE_URL;
             border: none;
         }
 
-        .nav-dropdown.active .nav-drop-content {
-            display: block;
-        }
+        .nav-dropdown.active .nav-drop-content { display: block; }
 
         .nav-drop-content a {
             color: var(--white) !important; 
             text-align: center;
             padding: 10px;
             font-size: 1rem;
+        }
+
+        /* When header is scrolled, the mobile panel becomes light; switch dropdown to dark text */
+        :global(.site-header.scrolled) .nav-drop-content {
+            background: rgba(10, 26, 43, 0.04);
+        }
+
+        :global(.site-header.scrolled) .nav-drop-content a {
+            color: var(--deep-water) !important;
         }
         
         .nav-drop-content::before, .nav-drop-content::after { display: none; }
